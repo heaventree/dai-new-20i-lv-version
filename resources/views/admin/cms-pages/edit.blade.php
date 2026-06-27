@@ -83,7 +83,7 @@
                        value="{{ $faqData['video_url'] ?? '' }}"
                        placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
                        style="width:100%;border:1px solid #d1d5db;border-radius:0.35rem;padding:8px 12px;font-size:1rem;color:#0d1f3c;outline:none">
-                <p style="font-size:0.8125rem;color:#9ca3af;margin-top:6px">Paste a YouTube or Vimeo URL. The video will appear on the public FAQ page above the questions.</p>
+                <p style="font-size:0.8125rem;color:#9ca3af;margin-top:6px">Paste a YouTube or Vimeo URL. Used as fallback if no video file is uploaded below.</p>
                 @if(!empty($faqData['video_url']))
                 <div style="margin-top:12px;border-radius:0.35rem;overflow:hidden;max-width:480px">
                     @php
@@ -101,6 +101,42 @@
                     @endif
                 </div>
                 @endif
+                {{-- Divider --}}
+                <div style="border-top:1px solid #e5e7eb;margin:16px 0"></div>
+
+                {{-- Video file upload --}}
+                <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:5px">Or Upload Video File</label>
+                @php
+                    $videoFile     = $faqData['video_file'] ?? null;
+                    $videoFileName = $faqData['video_file_name'] ?? null;
+                    $videoFileSize = $faqData['video_file_size'] ?? 0;
+                @endphp
+                @if($videoFile)
+                <div style="display:flex;align-items:center;gap:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:0.35rem;padding:10px 14px;margin-bottom:10px">
+                    <svg style="width:20px;height:20px;color:#16a34a;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <div style="flex:1;min-width:0">
+                        <p style="font-size:0.9375rem;font-weight:600;color:#15803d;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ $videoFileName }}</p>
+                        <p style="font-size:0.8125rem;color:#6b7280;margin:2px 0 0">{{ number_format($videoFileSize / 1048576, 1) }} MB</p>
+                    </div>
+                    <form method="POST" action="{{ route('admin.cms-pages.remove-video', $page) }}" style="margin:0"
+                          onsubmit="return confirm('Remove uploaded video file?')">
+                        @csrf @method('DELETE')
+                        <button type="submit" style="background:none;border:1px solid #fca5a5;border-radius:0.35rem;color:#dc2626;padding:5px 12px;font-size:0.8125rem;font-weight:600;cursor:pointer">Remove</button>
+                    </form>
+                </div>
+                @endif
+                <form method="POST" action="{{ route('admin.cms-pages.upload-video', $page) }}" enctype="multipart/form-data"
+                      style="display:flex;align-items:center;gap:10px">
+                    @csrf
+                    <input type="file" name="video" accept=".mp4,.webm"
+                           style="font-size:0.9375rem;color:#374151">
+                    <button type="submit"
+                            style="background:#0b3168;color:#fff;border:none;border-radius:0.35rem;padding:8px 16px;font-size:0.875rem;font-weight:600;cursor:pointer;white-space:nowrap">Upload Video</button>
+                </form>
+                <p style="font-size:0.8125rem;color:#9ca3af;margin-top:6px">MP4 or WebM, max 50 MB. Uploaded video takes priority over the YouTube/Vimeo URL above.</p>
+                @error('video')<p style="color:#dc2626;font-size:0.8125rem;margin-top:4px">{{ $message }}</p>@enderror
             </div>
         </div>
 

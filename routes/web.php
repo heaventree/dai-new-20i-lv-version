@@ -69,6 +69,8 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
     Route::get('/cms-pages', [CmsPagesController::class, 'index'])->name('cms-pages.index');
     Route::get('/cms-pages/{cmsPage}/edit', [CmsPagesController::class, 'edit'])->name('cms-pages.edit');
     Route::post('/cms-pages/{cmsPage}', [CmsPagesController::class, 'update'])->name('cms-pages.update');
+    Route::post('/cms-pages/{cmsPage}/video', [CmsPagesController::class, 'uploadVideo'])->name('cms-pages.upload-video');
+    Route::delete('/cms-pages/{cmsPage}/video', [CmsPagesController::class, 'removeVideo'])->name('cms-pages.remove-video');
     Route::get('/services', [ServicesAdminController::class, 'index'])->name('services.index');
     Route::post('/services/{cmsPage}/image', [ServicesAdminController::class, 'uploadImage'])->name('services.upload-image');
     Route::delete('/services/{cmsPage}/image', [ServicesAdminController::class, 'removeImage'])->name('services.remove-image');

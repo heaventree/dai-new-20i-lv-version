@@ -51,21 +51,31 @@ $categories = count($cmsCategories) ? $cmsCategories : $fallbackCategories;
 
 {{-- VIDEO --}}
 @php
-    $videoUrl = $page->content_json['video_url'] ?? '';
-    $embedUrl = '';
-    if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/', $videoUrl, $m)) {
-        $embedUrl = 'https://www.youtube.com/embed/' . $m[1];
-    } elseif (preg_match('/vimeo\.com\/(\d+)/', $videoUrl, $m)) {
-        $embedUrl = 'https://player.vimeo.com/video/' . $m[1];
+    $videoFile = $page->content_json['video_file'] ?? '';
+    $videoUrl  = $page->content_json['video_url'] ?? '';
+    $embedUrl  = '';
+    if (!$videoFile) {
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/', $videoUrl, $m)) {
+            $embedUrl = 'https://www.youtube.com/embed/' . $m[1];
+        } elseif (preg_match('/vimeo\.com\/(\d+)/', $videoUrl, $m)) {
+            $embedUrl = 'https://player.vimeo.com/video/' . $m[1];
+        }
     }
 @endphp
-@if($embedUrl)
+@if($videoFile || $embedUrl)
 <section class="py-12 bg-gray-50">
     <div class="container mx-auto px-6">
         <div class="max-w-3xl mx-auto">
             <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:0.75rem;box-shadow:0 4px 16px rgba(0,0,0,0.1)">
+                @if($videoFile)
+                <video controls playsinline preload="metadata"
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;border-radius:0.75rem">
+                    <source src="{{ asset(ltrim($videoFile, '/')) }}" type="video/{{ pathinfo($videoFile, PATHINFO_EXTENSION) }}">
+                </video>
+                @else
                 <iframe src="{{ $embedUrl }}" frameborder="0" allowfullscreen
                         style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+                @endif
             </div>
         </div>
     </div>
