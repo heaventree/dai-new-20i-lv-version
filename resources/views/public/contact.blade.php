@@ -1,0 +1,234 @@
+@extends('layouts.app')
+@section('title', 'Contact Us — Driver Assessments Ireland')
+@section('meta_description', 'Get in touch with Driver Assessments Ireland. Phone, email, or send us a message — our team is here to help.')
+
+@section('content')
+
+{{-- HERO --}}
+<section class="relative py-10 overflow-hidden"
+    style="background-image:url('{{ asset('images/contact-bg.jpg') }}');background-size:cover;background-position:top center">
+    <div class="absolute inset-0"
+        style="background:linear-gradient(105deg,hsl(215 81% 14% / 0.97) 45%,hsl(215 81% 23% / 0.70) 100%)"></div>
+    <div class="relative container mx-auto px-6">
+        <h1 class="font-display text-4xl md:text-5xl xl:text-6xl font-extrabold text-white leading-[1.1] mb-5 max-w-xl"
+            style="letter-spacing:-0.02em;font-family:Manrope,sans-serif">
+            Get in <span style="color:#ffcf00">Touch</span>
+        </h1>
+        <p class="text-white/70 text-base leading-relaxed max-w-sm">
+            Our dedicated team is here to provide the support and guidance you need for professional medical assessments.
+        </p>
+    </div>
+</section>
+
+{{-- FORM + CONTACT INFO --}}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-start">
+
+            {{-- LEFT — Send us a Message --}}
+            <div class="bg-white rounded-2xl p-8" style="box-shadow:0px 4px 20px rgba(25,28,29,0.07)">
+                <h2 class="font-display text-xl font-extrabold mb-6" style="letter-spacing:-0.02em;font-family:Manrope,sans-serif;color:#1a1a2e">Send us a Message</h2>
+
+                @if(session('success'))
+                <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 flex items-start gap-3">
+                    <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span>{{ session('success') }}</span>
+                </div>
+                @endif
+
+                @if($errors->any())
+                <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                    <p class="font-semibold mb-1">Please correct the following:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('contact.submit') }}" class="space-y-5">
+                    @csrf
+
+                    {{-- Row 1: Name + Email --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-800 mb-1.5">
+                                Full Name <span class="text-red-500">*</span>
+                            </label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <input name="first_name" type="text" required value="{{ old('first_name') }}"
+                                           placeholder="First name"
+                                           class="w-full px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors focus:outline-none focus:ring-2 focus:border-transparent @error('first_name') border-red-400 @else border-gray-200 @enderror"
+                                           style="focus-ring-color:hsl(215 81% 23% / 0.2)">
+                                    @error('first_name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                </div>
+                                <div>
+                                    <input name="last_name" type="text" required value="{{ old('last_name') }}"
+                                           placeholder="Last name"
+                                           class="w-full px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors focus:outline-none focus:ring-2 @error('last_name') border-red-400 @else border-gray-200 @enderror">
+                                    @error('last_name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-800 mb-1.5">
+                                Email Address <span class="text-red-500">*</span>
+                            </label>
+                            <input name="email" type="email" required value="{{ old('email') }}"
+                                   placeholder="john@example.com"
+                                   class="w-full px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors focus:outline-none focus:ring-2 @error('email') border-red-400 @else border-gray-200 @enderror">
+                            @error('email')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+
+                    {{-- Subject --}}
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-800 mb-1.5">
+                            Subject <span class="text-red-500">*</span>
+                        </label>
+                        <input name="subject" type="text" required value="{{ old('subject') }}"
+                               placeholder="How can we help?"
+                               class="w-full px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors focus:outline-none focus:ring-2 @error('subject') border-red-400 @else border-gray-200 @enderror">
+                        @error('subject')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
+
+                    {{-- Message --}}
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-800 mb-1.5">
+                            Message <span class="text-red-500">*</span>
+                        </label>
+                        <textarea name="message" rows="6" required
+                                  placeholder="Your message here..."
+                                  class="w-full px-3 py-2.5 rounded-lg border text-sm bg-white transition-colors focus:outline-none focus:ring-2 resize-none @error('message') border-red-400 @else border-gray-200 @enderror">{{ old('message') }}</textarea>
+                        @error('message')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
+
+                    <button type="submit"
+                            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:brightness-110 active:scale-95"
+                            style="background:hsl(215 81% 23%)">
+                        Send Inquiry
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                    </button>
+                </form>
+            </div>
+
+            {{-- RIGHT — Contact info + map --}}
+            <div class="space-y-5">
+
+                {{-- Contact Information card --}}
+                <div class="bg-white rounded-2xl p-6" style="box-shadow:0px 4px 20px rgba(25,28,29,0.07)">
+                    <h3 class="font-display text-base font-extrabold mb-5" style="letter-spacing:-0.01em;font-family:Manrope,sans-serif;color:#1a1a2e">Contact Information</h3>
+                    <div class="space-y-4">
+                        {{-- Office --}}
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
+                                <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Office</p>
+                                <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Ballyglass, Turloughmore,<br>Athenry, Co. Galway</p>
+                            </div>
+                        </div>
+                        {{-- Phone --}}
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
+                                <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Phone</p>
+                                <a href="tel:+353860422535" class="text-xs mt-0.5 hover:underline" style="color:hsl(215 81% 23%)">+353 (0)86 0422535</a>
+                            </div>
+                        </div>
+                        {{-- Email --}}
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
+                                <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Email</p>
+                                <a href="mailto:info@dai.ie" class="text-xs mt-0.5 hover:underline" style="color:hsl(215 81% 23%)">info@dai.ie</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Map --}}
+                <div class="rounded-2xl overflow-hidden relative" style="box-shadow:0px 4px 20px rgba(25,28,29,0.07)">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9703.938!2d-8.866!3d53.401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485b5c5c5c5c5c5d%3A0x0!2sTurloughmore%2C+Co.+Galway%2C+Ireland!5e0!3m2!1sen!2sie!4v1776255143325"
+                            width="100%" height="200" style="border:0;display:block" allowfullscreen loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade" title="DAI Office Location"></iframe>
+                    <a href="https://maps.google.com/?q=Turloughmore,Athenry,Co.Galway,Ireland"
+                       target="_blank" rel="noopener noreferrer"
+                       class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-all hover:brightness-110"
+                       style="background:hsl(215 81% 23%)">
+                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Get Directions
+                    </a>
+                </div>
+
+                {{-- Healthmail note --}}
+                <div class="rounded-xl px-4 py-3 text-xs leading-relaxed"
+                     style="background:hsl(210 100% 96%);border:1px solid hsl(210 80% 88%);color:hsl(215 81% 30%)">
+                    <strong>Healthmail:</strong> DAI is a Healthmail white site — email
+                    <a href="mailto:info@dai.ie" class="font-semibold underline">info@dai.ie</a>
+                    securely from any Healthmail address.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- HOW WE CAN HELP --}}
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="font-display text-3xl font-extrabold mb-3" style="letter-spacing:-0.02em;font-family:Manrope,sans-serif;color:#1a1a2e">How we can help</h2>
+            <p class="text-gray-500 text-base max-w-md mx-auto">Explore our specialised support channels designed for different needs.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            @foreach([
+                ['General Inquiries','Have a question about our services or general medical assessment requirements?','Learn More','faq','M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['Booking Support','Need assistance with your appointment booking or rescheduling a visit?','Manage Booking','assessment.index','M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
+                ['HCP Referrals','Dedicated channel for Healthcare Professionals to refer patients for assessments.','Referral Portal','hcp-referral','M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
+            ] as [$title,$desc,$cta,$route,$path])
+            <div class="bg-white rounded-2xl p-6 flex flex-col gap-4"
+                 style="border:1px solid rgba(25,28,29,0.08);box-shadow:0px 4px 12px rgba(25,28,29,0.05)">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:hsl(210 11% 96%)">
+                    <svg class="h-5 w-5" style="color:hsl(215 81% 23%)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="{{ $path }}"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-display font-bold text-base mb-2" style="letter-spacing:-0.01em;font-family:Manrope,sans-serif;color:#1a1a2e">{{ $title }}</p>
+                    <p class="text-gray-500 text-base leading-relaxed">{{ $desc }}</p>
+                </div>
+                <a href="{{ route($route) }}"
+                   class="inline-flex items-center gap-1.5 text-sm font-bold mt-auto transition-all hover:gap-2.5"
+                   style="color:hsl(215 81% 23%)">
+                    {{ $cta }}
+                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+@push('scripts')
+<script>
+(function () {
+    var form = document.querySelector('form[action*="contact"]');
+    if (!form) return;
+    form.addEventListener('submit', function () {
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor  = 'not-allowed';
+            btn.innerHTML = '<svg class="animate-spin h-4 w-4 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12a8 8 0 018-8v8H4z"/></svg> Sending…';
+        }
+    });
+})();
+</script>
+@endpush
+@endsection

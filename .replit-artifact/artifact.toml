@@ -1,0 +1,16 @@
+[[services]]
+name = "web"
+paths = ["/"]
+localPort = 8000
+
+[services.development]
+run = "cd /home/runner/workspace/artifacts/dai-laravel && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8000"
+
+[services.production.build]
+args = ["sh", "-c", "cd /home/runner/workspace/artifacts/dai-laravel && composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache"]
+
+[services.production.run]
+args = ["sh", "-c", "cd /home/runner/workspace/artifacts/dai-laravel && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+
+[services.production.health.startup]
+path = "/"

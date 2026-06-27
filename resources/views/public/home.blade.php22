@@ -1,0 +1,306 @@
+@extends('layouts.app')
+@section('title', 'Driver Assessments Ireland — Professional Driving Assessments')
+@section('meta_description', 'Providing professional on-road driving assessments and medical fitness-to-drive evaluations for individuals, healthcare professionals, and organisations throughout Ireland.')
+
+@section('schema_json')
+@php
+$_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'MedicalBusiness','name'=>'Driver Assessments Ireland','description'=>'Specialist driver assessments for medical fitness to drive. Serving all 32 counties of Ireland.','url'=>'https://www.driverassessmentsireland.ie','telephone'=>'+353860422535','email'=>'info@driverassessmentsireland.ie','areaServed'=>['@'.'type'=>'Country','name'=>'Ireland'],'priceRange'=>'€235'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+@endphp
+<script type="application/ld+json">{!! $_schema !!}</script>
+@endsection
+
+@section('content')
+
+{{-- ══════════════════════════════════════════════════════════════════
+    HERO — Dark Navy · Split layout
+════════════════════════════════════════════════════════════════════ --}}
+<section class="relative overflow-hidden" style="background: radial-gradient(ellipse at 70% 50%, hsl(215deg 81% 23%) 0%, hsl(215deg 81% 14%) 100%); min-height: 540px;">
+    <div class="container mx-auto px-6 py-20 md:py-28">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            {{-- Left — Headline + CTA --}}
+            <div>
+                <h1 class="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white leading-tight mb-6" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em;">
+                    The Standard in <span style="color:#ffcf00;">Medical Driving</span> Assessments
+                </h1>
+                <p class="text-lg leading-relaxed mb-10 max-w-md" style="color: rgba(255,255,255,0.75);">
+                    Providing professional on-road driving assessments and medical fitness-to-drive evaluations for individuals, healthcare professionals, and organisations throughout Ireland.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{ route('assessment.index') }}" class="btn-primary">
+                        Book an Assessment
+                    </a>
+                    <a href="{{ route('services') }}" class="btn-outline-white inline-flex items-center gap-2">
+                        Our Process
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            {{-- Right — Stat cards + road image --}}
+            <div class="flex flex-col gap-4">
+                {{-- Stat cards row --}}
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="rounded-xl p-5 transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02]" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+                        <div class="text-4xl font-extrabold text-white mb-1" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em;">10+</div>
+                        <div class="text-xs uppercase tracking-widest font-medium" style="color: rgba(255,255,255,0.6);">Years Experience</div>
+                    </div>
+                    <div class="rounded-xl p-5 transition-transform duration-200 hover:-translate-y-1 hover:scale-[1.02]" style="background: rgba(255,255,255,0.96);">
+                        <div class="text-4xl font-extrabold mb-1" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em; color: hsl(215deg 81% 14%);">500+</div>
+                        <div class="text-xs uppercase tracking-widest font-medium" style="color: hsl(215deg 81% 14% / 0.6);">Assessments / Year</div>
+                    </div>
+                </div>
+
+                {{-- Road image --}}
+                <div class="relative rounded-xl overflow-hidden" style="height: 200px;">
+                    <img src="{{ asset('images/hero-bg-v2.png') }}" alt="Nationwide driving assessments across Ireland" class="w-full h-full object-cover">
+                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,49,104,0.6) 0%, transparent 60%);"></div>
+                    <div class="absolute bottom-3 left-4">
+                        <span class="text-white text-sm font-semibold tracking-wide">Nationwide Service Ireland</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════════════════════════
+    MISSION — White bg · Split layout
+════════════════════════════════════════════════════════════════════ --}}
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {{-- Left — Image --}}
+            <div class="rounded-2xl overflow-hidden shadow-lg" style="min-height: 420px;">
+                <img src="{{ asset('images/assessment-scene-v2.jpg') }}" alt="Driver assessment in progress" class="w-full h-full object-cover" style="min-height: 420px;">
+            </div>
+
+            {{-- Right — Copy --}}
+            <div>
+                <span class="inline-block text-xs font-bold uppercase tracking-widest mb-4" style="color:#ffcf00; background: hsl(215deg 81% 23%); padding: 0.25rem 0.75rem; border-radius: 9999px;">Our Mission</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-6 leading-tight" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em; color: hsl(215deg 81% 14%);">
+                    Empowering Mobility Through Precision Diagnostics
+                </h2>
+                <p class="leading-relaxed mb-4" style="color: hsl(215deg 20% 46%);">
+                    At Driver Assessments Ireland, our mission is to provide independent, evidence-based driver assessments that support individual independence while promoting public safety.
+                </p>
+                <p class="leading-relaxed mb-8" style="color: hsl(215deg 20% 46%);">
+                    We work closely with the NDLS, RSA, and all Health Care Professionals to ensure a compassionate, independent, professional and rigorous evaluation process for every client, regardless of age or medical history.
+                </p>
+
+                {{-- Why Choose Us --}}
+                <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:hsl(215deg 81% 23%);">Why Choose Us</p>
+                <div class="grid grid-cols-2 gap-3">
+                    @foreach([
+                        ['RSA Registered',             'Fully Compliant Provider'],
+                        ['Fully Compliant Provider',   'Regulatory Excellence'],
+                        ['Garda Vetted',               'Experienced Male and Female Assessors'],
+                        ['HSE Approved',               'Committed to Clinical Excellence'],
+                    ] as [$title, $sub])
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="color:#ffcf00"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        <p class="font-semibold text-sm" style="color: hsl(215deg 81% 14%);">{{ $title }}</p>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════════════════════════
+    HOW IT WORKS — Surface-low bg · 4-step cards
+════════════════════════════════════════════════════════════════════ --}}
+<section class="py-24" style="background: hsl(215deg 20% 96%);">
+    <div class="container mx-auto px-6">
+        <div class="mb-14">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-3" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em; color: hsl(215deg 81% 14%);">
+                How it Works
+            </h2>
+            <p style="color: hsl(215deg 20% 46%);">A simple 4-step process to get you back on the road safely.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {{-- Step 1 --}}
+            <div class="step-card">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: hsl(215deg 81% 23%);">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </div>
+                <p class="font-bold text-sm mb-1" style="color: hsl(215deg 81% 14%);">1. Referral</p>
+                <p class="text-base leading-relaxed" style="color: hsl(215deg 20% 46%);">
+                    If you are a HCP submit a referral through our <a href="{{ route('hcp-referral') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">secure online portal</a> or self-refer by using the <a href="{{ route('assessment.index') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">Book an Assessment</a> button.
+                </p>
+            </div>
+
+            {{-- Step 2 --}}
+            <div class="step-card">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: #ffcf00;">
+                    <svg class="w-6 h-6" style="color:#231b00;" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                </div>
+                <p class="font-bold text-sm mb-1" style="color: hsl(215deg 81% 14%);">2. Processing</p>
+                <p class="text-base leading-relaxed" style="color: hsl(215deg 20% 46%);">Our team will process your referral/booking within 72 hours and make contact with you to arrange the assessment.</p>
+            </div>
+
+            {{-- Step 3 --}}
+            <div class="step-card">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: hsl(215deg 81% 23%);">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l1 1h1m8-1h1l2-5h3l2 5h1"/></svg>
+                </div>
+                <p class="font-bold text-sm mb-1" style="color: hsl(215deg 81% 14%);">3. On-Road Assessment</p>
+                <p class="text-base leading-relaxed" style="color: hsl(215deg 20% 46%);">Complete a practical driving assessment in your own vehicle in the locality where you do the majority of your driving.</p>
+            </div>
+
+            {{-- Step 4 --}}
+            <div class="step-card">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: #ffcf00;">
+                    <svg class="w-6 h-6" style="color:#231b00;" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                </div>
+                <p class="font-bold text-sm mb-1" style="color: hsl(215deg 81% 14%);">4. Certification</p>
+                <p class="text-base leading-relaxed" style="color: hsl(215deg 20% 46%);">Receive your formal report from DAI within 5 working days along with any necessary guidance for the NDLS.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════════════════════════
+    TESTIMONIALS — White bg · auto-scroll carousel
+════════════════════════════════════════════════════════════════════ --}}
+@if(isset($testimonials) && $testimonials->count())
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-14" style="font-family:'Manrope',sans-serif; letter-spacing:-0.02em; color: hsl(215deg 81% 14%);">
+            Our Patients' &amp; Referring Doctors' Experience
+        </h2>
+
+        <div id="testimonials-container" class="relative">
+            <div id="testimonials-grid" class="grid gap-6">
+                {{-- Cards rendered by JS from JSON --}}
+            </div>
+
+            {{-- Controls --}}
+            @if($testimonials->count() > 3)
+            <div class="flex items-center justify-center gap-4 mt-10">
+                <button id="t-prev" class="w-9 h-9 rounded-full border flex items-center justify-center transition-colors" style="border-color: rgba(11,49,104,0.2); color: hsl(215deg 81% 14%);" aria-label="Previous testimonials">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <div id="t-dots" class="flex gap-2"></div>
+                <button id="t-next" class="w-9 h-9 rounded-full border flex items-center justify-center transition-colors" style="border-color: rgba(11,49,104,0.2); color: hsl(215deg 81% 14%);" aria-label="Next testimonials">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            @endif
+        </div>
+
+        <script>
+(function() {
+    var items = @json($testimonials->values());
+    var VISIBLE = 3;
+    var active  = 0;
+    var timer   = null;
+    var grid    = document.getElementById('testimonials-grid');
+    var dotsEl  = document.getElementById('t-dots');
+    var prevBtn = document.getElementById('t-prev');
+    var nextBtn = document.getElementById('t-next');
+
+    function star(yellow) {
+        return '<svg style="width:1rem;height:1rem;color:' + (yellow ? '#ffcf00' : '#d1d5db') + ';fill:currentColor;" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+    }
+
+    function renderCard(t) {
+        var hl = t.highlight;
+        var bg   = hl ? 'background:hsl(215deg 81% 23%);box-shadow:0 12px 32px rgba(25,28,29,0.12);' : 'background:white;border:1px solid hsl(215deg 20% 92%);box-shadow:0 4px 12px rgba(25,28,29,0.06);';
+        var qc   = hl ? 'color:rgba(255,255,255,0.85);' : 'color:hsl(215deg 70% 12%);';
+        var nc   = hl ? 'color:#fff;' : 'color:hsl(215deg 81% 23%);';
+        var bt   = hl ? 'border-top:1px solid rgba(255,255,255,0.15);' : 'border-top:1px solid hsl(215deg 20% 92%);';
+        var stars = Array.from({length: t.stars || 5}).map(function(){ return star(true); }).join('');
+        return '<div class="rounded-xl p-7 flex flex-col gap-4 transition-transform duration-200 hover:-translate-y-1" style="' + bg + '">'
+            + '<div class="flex gap-0.5">' + stars + '</div>'
+            + '<blockquote class="text-base leading-relaxed flex-1" style="' + qc + '">&ldquo;' + t.quote + '&rdquo;</blockquote>'
+            + '<p class="text-base font-bold" style="margin-top:1.5rem;padding-top:1rem;' + bt + nc + '">&mdash; ' + t.name + ', ' + t.location + '</p>'
+            + '</div>';
+    }
+
+    function render() {
+        var count = items.length;
+        var visibleCount = count === 2 ? 2 : Math.min(VISIBLE, count);
+        var show  = visibleCount;
+        var html  = '';
+        for (var i = 0; i < show; i++) {
+            html += renderCard(items[(active + i) % count]);
+        }
+        if (grid) {
+            grid.innerHTML = html;
+            grid.className = 'grid gap-6 ' + (
+                visibleCount === 1 ? 'grid-cols-1 max-w-xl mx-auto' :
+                visibleCount === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                'grid-cols-1 md:grid-cols-3'
+            );
+        }
+
+        if (dotsEl) {
+            dotsEl.innerHTML = '';
+            for (var j = 0; j < count; j++) {
+                var d = document.createElement('button');
+                d.style.cssText = 'width:0.5rem;height:0.5rem;border-radius:9999px;background:' + (j === active ? 'hsl(215deg 81% 23%)' : 'hsl(215deg 20% 80%)') + ';border:none;padding:0;cursor:pointer;';
+                d.setAttribute('aria-label', 'Go to testimonial ' + (j + 1));
+                (function(idx){ d.addEventListener('click', function(){ active = idx; render(); resetTimer(); }); })(j);
+                dotsEl.appendChild(d);
+            }
+        }
+    }
+
+    function resetTimer() {
+        if (timer) clearInterval(timer);
+        if (items.length <= VISIBLE) return;
+        timer = setInterval(function() {
+            active = (active + 1) % items.length;
+            render();
+        }, 4500);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() {
+        active = (active - 1 + items.length) % items.length;
+        render(); resetTimer();
+        this.style.background = 'hsl(215deg 81% 23%)'; this.style.color = '#fff';
+        var self = this; setTimeout(function(){ self.style.background = ''; self.style.color = 'hsl(215deg 81% 14%)'; }, 200);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+        active = (active + 1) % items.length;
+        render(); resetTimer();
+        this.style.background = 'hsl(215deg 81% 23%)'; this.style.color = '#fff';
+        var self = this; setTimeout(function(){ self.style.background = ''; self.style.color = 'hsl(215deg 81% 14%)'; }, 200);
+    });
+
+    render();
+    resetTimer();
+})();
+        </script>
+    </div>
+</section>
+@endif
+
+{{-- ══════════════════════════════════════════════════════════════════
+    CTA — Gold background
+════════════════════════════════════════════════════════════════════ --}}
+<section class="py-20" style="background-color: #ffcf00;">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-8" style="font-family:'Manrope',sans-serif; color:#231b00; letter-spacing:-0.02em;">
+            Ready to schedule your assessment?
+        </h2>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{{ route('hcp-referral') }}" class="btn-navy">
+                Start Online Referral
+            </a>
+            <a href="{{ route('contact') }}" class="btn-outline-dark">
+                View Locations
+            </a>
+        </div>
+    </div>
+</section>
+
+@endsection

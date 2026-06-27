@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /admin
+Disallow: /arrange-assessment/success
+Disallow: /assessment/
+
+Sitemap: https://www.driverassessmentsireland.ie/sitemap.xml

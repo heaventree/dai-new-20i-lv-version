@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 290">
+  <!-- Sea background -->
+  <rect width="240" height="290" fill="#cce5f0"/>
+
+  <!-- Ireland island — simplified but recognizable outline, clockwise from NW -->
+  <path d="
+    M 103,22
+    C 108,18 116,14 124,13
+    C 132,12 140,15 147,20
+    C 154,25 158,32 160,40
+    C 162,48 160,57 157,65
+    C 155,72 151,78 152,86
+    C 153,94 158,102 160,110
+    C 162,118 161,127 158,135
+    C 155,143 149,150 143,156
+    C 137,162 130,166 122,170
+    C 114,174 106,176 98,174
+    C 90,172 83,167 76,161
+    C 69,155 63,148 58,141
+    C 53,134 50,126 50,118
+    C 50,110 53,102 53,94
+    C 53,86 50,78 46,71
+    C 42,64 36,58 32,51
+    C 28,44 27,36 30,29
+    C 33,22 40,17 48,14
+    C 56,11 65,12 72,16
+    C 78,20 82,26 86,22
+    C 90,18 98,14 103,22 Z
+  " fill="#5a9e5a" stroke="#3a7a3a" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- Northern coastline extra detail -->
+  <path d="M 103,22 C 97,19 90,18 86,22" fill="none" stroke="#3a7a3a" stroke-width="1.5"/>
+
+  <!-- Northern Ireland subtle political boundary (dashed) -->
+  <path d="M 76,52 C 86,48 96,46 108,48 C 118,50 128,56 136,64" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+
+  <!-- Galway Bay indent (west coast detail) -->
+  <path d="M 46,108 C 40,112 36,118 38,124 C 40,130 46,132 50,128" fill="#cce5f0" stroke="#3a7a3a" stroke-width="1"/>
+
+  <!-- Shannon mouth area -->
+  <path d="M 46,96 C 41,100 38,105 40,108" fill="#cce5f0" stroke="#3a7a3a" stroke-width="1"/>
+
+  <!-- Co. Galway marker (on west side) -->
+  <circle cx="68" cy="115" r="5" fill="hsl(215,80%,25%)" opacity="0.95"/>
+  <circle cx="68" cy="115" r="10" fill="hsl(215,80%,25%)" opacity="0.18"/>
+
+  <!-- Labels -->
+  <text x="84" y="112" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="hsl(215,80%,15%)">Driver Assessments Ireland</text>
+  <text x="84" y="123" font-family="Arial, sans-serif" font-size="6.5" fill="hsl(215,80%,30%)">Co. Galway · Nationwide Service</text>
+
+  <!-- Atlantic Ocean label -->
+  <text x="8" y="200" font-family="Arial, sans-serif" font-size="7" fill="#5599bb" font-style="italic" transform="rotate(-25,8,200)">Atlantic Ocean</text>
+
+  <!-- Irish Sea label -->
+  <text x="170" y="100" font-family="Arial, sans-serif" font-size="7" fill="#5599bb" font-style="italic" transform="rotate(10,170,100)">Irish Sea</text>
+
+  <!-- Compass rose -->
+  <g transform="translate(212,24)">
+    <circle r="16" fill="white" opacity="0.88"/>
+    <text x="0" y="-5" text-anchor="middle" font-size="8" font-weight="bold" fill="#333" font-family="Arial,sans-serif">N</text>
+    <text x="0" y="11" text-anchor="middle" font-size="6" fill="#777" font-family="Arial,sans-serif">S</text>
+    <text x="-9" y="3" text-anchor="middle" font-size="6" fill="#777" font-family="Arial,sans-serif">W</text>
+    <text x="9" y="3" text-anchor="middle" font-size="6" fill="#777" font-family="Arial,sans-serif">E</text>
+    <polygon points="0,-11 2,-3 -2,-3" fill="hsl(215,80%,25%)"/>
+    <polygon points="0,11 2,3 -2,3" fill="#bbb"/>
+  </g>
+
+  <!-- Border frame -->
+  <rect x="1" y="1" width="238" height="288" fill="none" stroke="#a8c8d8" stroke-width="1.5" rx="4"/>
+
+  <!-- Scale note -->
+  <text x="10" y="282" font-family="Arial, sans-serif" font-size="6" fill="#6699aa">Ireland — all-island nationwide service</text>
+</svg>
