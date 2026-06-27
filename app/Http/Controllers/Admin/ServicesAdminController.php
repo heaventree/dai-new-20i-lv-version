@@ -25,7 +25,11 @@ class ServicesAdminController extends Controller
 
         $file     = $request->file('image');
         $filename = $cmsPage->slug . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('images/services'), $filename);
+        $dest     = public_path('images/services');
+        if (!File::isDirectory($dest)) {
+            File::makeDirectory($dest, 0755, true);
+        }
+        $file->move($dest, $filename);
 
         $cmsPage->update(['image_path' => '/images/services/' . $filename]);
 
