@@ -72,6 +72,38 @@
 
         <input type="hidden" name="content_json" id="faq-json-output">
 
+        {{-- Video URL --}}
+        <div style="border:1px solid #e5e7eb;border-radius:0.35rem;overflow:hidden">
+            <div style="background:#f8f9fa;padding:14px 20px;border-bottom:1px solid #e5e7eb">
+                <span style="font-weight:700;font-size:1rem;color:#0d1f3c">FAQ Video</span>
+            </div>
+            <div style="padding:16px 20px">
+                <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:5px">YouTube or Vimeo URL</label>
+                <input type="url" id="faq-video-url"
+                       value="{{ $faqData['video_url'] ?? '' }}"
+                       placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
+                       style="width:100%;border:1px solid #d1d5db;border-radius:0.35rem;padding:8px 12px;font-size:1rem;color:#0d1f3c;outline:none">
+                <p style="font-size:0.8125rem;color:#9ca3af;margin-top:6px">Paste a YouTube or Vimeo URL. The video will appear on the public FAQ page above the questions.</p>
+                @if(!empty($faqData['video_url']))
+                <div style="margin-top:12px;border-radius:0.35rem;overflow:hidden;max-width:480px">
+                    @php
+                        $previewUrl = $faqData['video_url'];
+                        $embedUrl = '';
+                        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/', $previewUrl, $m)) {
+                            $embedUrl = 'https://www.youtube.com/embed/' . $m[1];
+                        } elseif (preg_match('/vimeo\.com\/(\d+)/', $previewUrl, $m)) {
+                            $embedUrl = 'https://player.vimeo.com/video/' . $m[1];
+                        }
+                    @endphp
+                    @if($embedUrl)
+                    <iframe src="{{ $embedUrl }}" width="480" height="270" frameborder="0" allowfullscreen
+                            style="display:block;border-radius:0.35rem"></iframe>
+                    @endif
+                </div>
+                @endif
+            </div>
+        </div>
+
         {{-- Categories --}}
         <div style="border:1px solid #e5e7eb;border-radius:0.35rem;overflow:hidden">
             <div style="background:#f8f9fa;padding:14px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between">
@@ -205,10 +237,15 @@ if (faqOutput) {
     form.addEventListener('submit', serializeFaq);
 
     function serializeFaq() {
-        faqOutput.value = JSON.stringify({
+        var data = {
             categories: getCategories(),
             items:      getFaqItems()
-        });
+        };
+        var videoUrl = document.getElementById('faq-video-url');
+        if (videoUrl && videoUrl.value.trim()) {
+            data.video_url = videoUrl.value.trim();
+        }
+        faqOutput.value = JSON.stringify(data);
     }
 
     function getCategories() {
