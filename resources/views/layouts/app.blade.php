@@ -446,9 +446,10 @@ html body {
                         @endforeach
                     </ul>
                 </nav>
-                <div style="padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                {{-- ORIGINAL: DAI feedback 26-06-26 --}}
+                {{-- <div style="padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
                     <a href="{{ route('admin.login') }}" class="text-xs transition-colors" style="color: rgba(255,255,255,0.4);" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Admin Login</a>
-                </div>
+                </div> --}}
             </div>
 
         </div>

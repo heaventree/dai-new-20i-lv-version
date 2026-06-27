@@ -223,7 +223,8 @@ $assessmentSteps = [
                     <a href="{{ route('hcp-referral') }}"
                        class="inline-flex items-center gap-1.5 text-sm font-bold transition-all hover:gap-2.5"
                        style="color:hsl(215 81% 23%)">
-                        Professional Referral Portal
+                        {{-- ORIGINAL: DAI feedback 26-06-26 Professional Referral Portal --}}
+                        Health Care Professional Portal
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>

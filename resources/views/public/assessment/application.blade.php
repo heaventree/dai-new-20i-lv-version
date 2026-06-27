@@ -194,7 +194,8 @@ $lc = "block text-sm font-semibold text-gray-700 mb-1.5";
         {{-- Licence Number + Expiry --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-                <label class="{{ $lc }}">What is your driving license number: <span class="text-red-500">*</span></label>
+                {{-- ORIGINAL: DAI feedback 26-06-26 What is your driving license number --}}
+                <label class="{{ $lc }}">What is your driving licence number: <span class="text-red-500">*</span></label>
                 <input type="text" name="license_number" required placeholder="Your driving licence number"
                        value="{{ old('license_number', $application->license_number) }}"
                        class="{{ $ic }} @error('license_number') border-red-400 bg-red-50 @enderror">

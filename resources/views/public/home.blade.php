@@ -97,7 +97,9 @@ $_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'Medical
                         ['RSA Registered',             'Fully Compliant Provider'],
                         ['Fully Compliant Provider',   'Regulatory Excellence'],
                         ['Garda Vetted',               'Experienced Male and Female Assessors'],
-                        ['HSE Approved',               'Committed to Clinical Excellence'],
+                        {{-- ORIGINAL: DAI feedback 26-06-26 --}}
+                        {{-- ['HSE Approved',               'Committed to Clinical Excellence'], --}}
+                        ['Recommended provider through the National Office for Road Traffic Medicine', 'Committed to Clinical Excellence'],
                     ] as [$title, $sub])
                     <div class="flex items-start gap-2">
                         <svg class="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="color:#ffcf00"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -294,10 +296,12 @@ $_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'Medical
         </h2>
         <div class="flex flex-wrap justify-center gap-4">
             <a href="{{ route('hcp-referral') }}" class="btn-navy">
-                Start Online Referral
+                {{-- ORIGINAL: DAI feedback 26-06-26 Start Online Referral --}}
+                HCP Secure Referral
             </a>
             <a href="{{ route('contact') }}" class="btn-outline-dark">
-                View Locations
+                {{-- ORIGINAL: DAI feedback 26-06-26 View Locations --}}
+                Book an Assessment
             </a>
         </div>
     </div>

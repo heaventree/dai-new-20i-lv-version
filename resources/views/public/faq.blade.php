@@ -151,7 +151,8 @@ $categories = count($cmsCategories) ? $cmsCategories : $fallbackCategories;
                 <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white mb-4"
                     style="letter-spacing:-0.02em;font-family:Manrope,sans-serif">Still have questions?</h2>
                 <p class="text-white/70 text-base mb-8 max-w-md mx-auto leading-relaxed">
-                    Our clinical support team is available Monday through Friday, 9:00 AM to 5:00 PM to assist with your specific concerns.
+                    {{-- ORIGINAL: DAI feedback 26-06-26 Our clinical support team is available Monday through Friday --}}
+                    Our support team is available Monday to Friday, 9:00 AM to 5:00 PM to assist with your specific concerns.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="{{ route('contact') }}"

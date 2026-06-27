@@ -126,7 +126,9 @@
                             </div>
                             <div>
                                 <p class="font-bold text-sm text-gray-900">Office</p>
-                                <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Ballyglass, Turloughmore,<br>Athenry, Co. Galway</p>
+                                {{-- ORIGINAL: DAI feedback 26-06-26 --}}
+                                {{-- <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Ballyglass, Turloughmore,<br>Athenry, Co. Galway</p> --}}
+                                <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Lackaghbeg, Lackagh, Turloughmore,<br>Athenry, Co. Galway</p>
                             </div>
                         </div>
                         {{-- Phone --}}

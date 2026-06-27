@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         $defaults = [
             'maintenance_mode'   => '0',
             'stripe_mode'        => 'test',
-            'assessment_fee'     => '195',
+            // ORIGINAL: DAI feedback 26-06-26
+            // 'assessment_fee'     => '195',
+            'assessment_fee'     => '235',
             'contact_email'      => 'info@driverassessmentsireland.ie',
             'notification_email' => 'info@driverassessmentsireland.ie',
             'mail_from_address'  => 'info@driverassessmentsireland.ie',

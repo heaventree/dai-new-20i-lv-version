@@ -115,7 +115,8 @@
                     </li>
                     <li class="flex items-start gap-2">
                         <span class="font-semibold mt-0.5" style="color:hsl(215 81% 14%)">2.</span>
-                        <span>Driving License Details</span>
+                        {{-- ORIGINAL: DAI feedback 26-06-26 Driving License Details --}}
+                        <span>Driving Licence Details</span>
                     </li>
                     <li class="flex items-start gap-2">
                         <span class="font-semibold mt-0.5" style="color:hsl(215 81% 14%)">3.</span>
