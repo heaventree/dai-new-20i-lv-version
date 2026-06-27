@@ -272,6 +272,10 @@ const faqOutput = document.getElementById('faq-json-output');
 if (faqOutput) {
     form.addEventListener('submit', serializeFaq);
 
+    var existingVideoFile = @json($faqData['video_file'] ?? null);
+    var existingVideoFileName = @json($faqData['video_file_name'] ?? null);
+    var existingVideoFileSize = @json($faqData['video_file_size'] ?? null);
+
     function serializeFaq() {
         var data = {
             categories: getCategories(),
@@ -280,6 +284,11 @@ if (faqOutput) {
         var videoUrl = document.getElementById('faq-video-url');
         if (videoUrl && videoUrl.value.trim()) {
             data.video_url = videoUrl.value.trim();
+        }
+        if (existingVideoFile) {
+            data.video_file = existingVideoFile;
+            data.video_file_name = existingVideoFileName;
+            data.video_file_size = existingVideoFileSize;
         }
         faqOutput.value = JSON.stringify(data);
     }
