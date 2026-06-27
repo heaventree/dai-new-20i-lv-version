@@ -120,22 +120,18 @@
                         <p style="font-size:0.9375rem;font-weight:600;color:#15803d;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ $videoFileName }}</p>
                         <p style="font-size:0.8125rem;color:#6b7280;margin:2px 0 0">{{ number_format($videoFileSize / 1048576, 1) }} MB</p>
                     </div>
-                    <form method="POST" action="{{ route('admin.cms-pages.remove-video', $page) }}" style="margin:0"
-                          onsubmit="return confirm('Remove uploaded video file?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" style="background:none;border:1px solid #fca5a5;border-radius:0.35rem;color:#dc2626;padding:5px 12px;font-size:0.8125rem;font-weight:600;cursor:pointer">Remove</button>
-                    </form>
+                    <button type="button" onclick="if(confirm('Remove uploaded video file?'))document.getElementById('remove-video-form').submit()"
+                            style="background:none;border:1px solid #fca5a5;border-radius:0.35rem;color:#dc2626;padding:5px 12px;font-size:0.8125rem;font-weight:600;cursor:pointer">Remove</button>
                 </div>
                 @endif
-                <form method="POST" action="{{ route('admin.cms-pages.upload-video', $page) }}" enctype="multipart/form-data"
-                      style="display:flex;align-items:center;gap:10px">
-                    @csrf
-                    <input type="file" name="video" accept=".mp4,.webm"
+                <div style="display:flex;align-items:center;gap:10px">
+                    <input type="file" id="video-file-input" accept=".mp4,.webm"
                            style="font-size:0.9375rem;color:#374151">
-                    <button type="submit"
+                    <button type="button" onclick="submitVideoUpload()"
                             style="background:#0b3168;color:#fff;border:none;border-radius:0.35rem;padding:8px 16px;font-size:0.875rem;font-weight:600;cursor:pointer;white-space:nowrap">Upload Video</button>
-                </form>
+                </div>
                 <p style="font-size:0.8125rem;color:#9ca3af;margin-top:6px">MP4 or WebM, max 50 MB. Uploaded video takes priority over the YouTube/Vimeo URL above.</p>
+                <p id="video-upload-error" style="color:#dc2626;font-size:0.8125rem;margin-top:4px;display:none"></p>
                 @error('video')<p style="color:#dc2626;font-size:0.8125rem;margin-top:4px">{{ $message }}</p>@enderror
             </div>
         </div>
@@ -249,6 +245,17 @@
         </div>
     </form>
 </div>
+
+{{-- Video forms placed outside main form to avoid nesting --}}
+@if($page->slug === 'faq')
+<form id="upload-video-form" method="POST" action="{{ route('admin.cms-pages.upload-video', $page) }}" enctype="multipart/form-data" style="display:none">
+    @csrf
+    <input type="file" name="video" id="upload-video-file-input">
+</form>
+<form id="remove-video-form" method="POST" action="{{ route('admin.cms-pages.remove-video', $page) }}" style="display:none">
+    @csrf @method('DELETE')
+</form>
+@endif
 
 @push('scripts')
 <script>
@@ -419,6 +426,20 @@ if (faqOutput) {
 
     updateCount();
 }
+
+window.submitVideoUpload = function() {
+    var visibleInput = document.getElementById('video-file-input');
+    var errorEl = document.getElementById('video-upload-error');
+    if (!visibleInput || !visibleInput.files.length) {
+        if (errorEl) { errorEl.textContent = 'Please select a video file first.'; errorEl.style.display = 'block'; }
+        return;
+    }
+    var hiddenInput = document.getElementById('upload-video-file-input');
+    var dt = new DataTransfer();
+    dt.items.add(visibleInput.files[0]);
+    hiddenInput.files = dt.files;
+    document.getElementById('upload-video-form').submit();
+};
 </script>
 @endpush
 
