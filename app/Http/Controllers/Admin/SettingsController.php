@@ -24,6 +24,7 @@ class SettingsController extends Controller
 
             case 'stripe':
                 $this->setIfPresent($request, [
+                    'assessment_fee',
                     'stripe_mode',
                     'stripe_publishable_key_test', 'stripe_secret_key_test',
                     'stripe_publishable_key_live', 'stripe_secret_key_live',

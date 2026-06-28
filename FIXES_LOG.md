@@ -149,3 +149,19 @@
 4. **Add 5 new FAQ questions** via admin panel at `/admin/cms-pages/9/edit` (see list above)
 5. **Ensure `STRIPE_SECRET` is set** in production `.env` so the dev bypass link does not appear on the live Book an Assessment page
 6. **Turnaround times** (items 9a-9h above): confirm with client whether 72h, 5 working days, 5-7 days, 24h, and 48h cancellation window are all correct
+
+---
+
+# Batch 4 — Address verification + Assessment Fee admin UI 26-06-28
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 1 | Footer address check | `resources/views/layouts/app.blade.php` | 405 | `Lackaghbeg, Lackagh, Turloughmore, Athenry, Co. Galway` | Already correct from Batch 1 | ✅ Verified |
+| 2 | Footer phone check | `resources/views/layouts/app.blade.php` | 398 | `+353 (0)86 0422535` | Correct | ✅ Verified |
+| 3 | Assessment fee admin UI | `resources/views/admin/settings/index.blade.php` | 65 | No field for assessment fee | Added €-prefixed number input under Payment Gateway tab | ✅ Fixed |
+| 4 | Assessment fee controller | `app/Http/Controllers/Admin/SettingsController.php` | 27 | `assessment_fee` not in stripe tab save list | Added to `setIfPresent` array | ✅ Fixed |
+| 5a | Fee read: booking page | `app/Http/Controllers/Public/AssessmentController.php` | 26 | `Setting::get('assessment_fee', '235')` | Already dynamic | ✅ Verified |
+| 5b | Fee read: Stripe checkout | `app/Http/Controllers/Public/AssessmentController.php` | 53 | `Setting::get('assessment_fee', '235')` | Already dynamic | ✅ Verified |
+| 5c | Fee read: FAQ page | `app/Http/Controllers/Public/FaqController.php` | 10 | `Setting::get('assessment_fee', '235')` | Already dynamic | ✅ Verified |
+| 5d | Fee display: booking page | `resources/views/public/assessment/index.blade.php` | 15, 87, 143 | `€{{ $fee }}` | Already dynamic via controller `$fee` variable | ✅ Verified |
+| 5e | Fee display: FAQ fallback | `resources/views/public/faq.blade.php` | 12, 21 | `€' . $fee . '` | Already dynamic via controller `$fee` variable | ✅ Verified |

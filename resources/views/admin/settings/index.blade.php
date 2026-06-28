@@ -61,6 +61,21 @@ $s = fn($k, $d='') => \App\Models\Setting::get($k, $d);
     $hasLive    = $livePk && $liveSk;
 @endphp
 
+{{-- Assessment Fee --}}
+<div class="settings-card" style="margin-bottom:24px">
+    <h2 class="card-title">Assessment Fee</h2>
+    <p class="card-desc" style="margin-bottom:16px">The fee charged for a driving assessment. This value is displayed on the booking page, FAQ page, and used as the Stripe checkout amount.</p>
+    <div class="form-field" style="max-width:200px">
+        <label class="field-label">Fee (€)</label>
+        <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:1.25rem;font-weight:700;color:#374151">€</span>
+            <input type="number" name="assessment_fee" value="{{ $s('assessment_fee', '235') }}"
+                   min="0" step="1" class="field-input" style="font-size:1.125rem;font-weight:600">
+        </div>
+        <p class="field-hint">Currently displayed as €{{ $s('assessment_fee', '235') }} on the public site. Changes take effect immediately.</p>
+    </div>
+</div>
+
 {{-- Stripe Mode card --}}
 <div class="settings-card">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px">
