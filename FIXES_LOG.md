@@ -87,3 +87,65 @@
 3. **Testimonials (manual DB fix needed):**
    - Dr Sharon Healy: quote appears truncated ending with 'I have no hesitation in' — restore full quote in testimonials table
    - Fr. Patrick O'Keeffe, C.Ss.R.: name/location is duplicated in the testimonials table — remove the duplicate
+
+---
+
+# Batch 3 — FAQ, Team, Book Assessment, Structural Fixes 26-06-26
+
+## FAQ PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 1 | Accordion expand/collapse check | `resources/views/public/faq.blade.php` | 111-133, 225-232 | JS toggles `.hidden` class on `.faq-answer` + rotates chevron on `.faq-trigger` click | All 17 items use identical markup — accordion works correctly | ✅ Verified |
+| 2 | Category filters check | `resources/views/public/faq.blade.php` | 94-106, 185-196 | JS filters by `data-cat` attribute matching `activeCategory` | All 9 categories (General Questions, Booking, Assessment, Preparation, Support, After Assessment, Pricing, Policies, About Us) rendered from CMS `content_json` | ✅ Verified |
+| 3 | FAQ price shows €235 | `resources/views/public/faq.blade.php` | 12, 21 | Fee loaded via `$fee` variable from `Setting::get('assessment_fee', '235')` | Default fallback is 235; live DB needs `UPDATE settings SET value='235' WHERE key='assessment_fee'` | ✅ Verified (code default is 235) |
+| 4 | Add 5 missing FAQ questions | `database/seeders/DatabaseSeeder.php` | N/A | Not present | Not added to seeder (FAQs managed via admin CMS panel, not seeder) | ⚠️ Add via admin panel — see below |
+| 5 | 'Monday through Friday' check | `resources/views/public/faq.blade.php` | 155 | Fixed in Batch 1 to 'Monday to Friday' | Confirmed correct | ✅ Verified |
+
+### FAQ questions to add via admin panel at `/admin/cms-pages/9/edit`:
+
+1. **General Questions** — Q: *Will this affect my driving licence or will DAI report me to the NDLS?* — A: *DAI does not report directly to the NDLS. The final decision about your licence rests with your referring Healthcare Professional and the NDLS, not DAI. Our role is to provide an objective, professional assessment. Our goal is always to support safe driving where possible.*
+2. **General Questions** — Q: *Is it a pass or fail test?* — A: *No — it is not a pass or fail test. It is a professional assessment that evaluates your current driving ability. The outcome is a detailed report with recommendations, not a pass or fail result.*
+3. **Pricing** — Q: *How much does it cost and what is included?* — A: *The assessment fee is €235. This includes the full on-road driving assessment, a detailed written report, and recommendations for your Healthcare Professional. Please check our cancellation policy before booking.*
+4. **Preparation** — Q: *What do I need to bring?* — A: *Please bring your valid driving licence, your Eircode, and confirmation of your current motor insurance, NCT, and motor tax. These details will also be required during the booking process.*
+5. **General Questions** — Q: *Whose car is used during the assessment?* — A: *Your own car is used during the assessment. Please ensure it is taxed, insured, and has a valid NCT.*
+
+## DAI TEAM PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 6 | Team member profile links | `resources/views/public/team.blade.php` | 31 | Links use `route('team.show', $member->slug)` → `/team/{slug}` | Route exists at `routes/web.php:33`. Links are dynamic from DB — if any team member has a missing slug, the link will 404. | ✅ Verified (code correct; data-dependent) |
+
+## BOOK AN ASSESSMENT PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 7 | 'Driving License' → 'Driving Licence' | `resources/views/public/assessment/index.blade.php` | 119 | Fixed in Batch 1 | Confirmed — only commented original remains | ✅ Verified |
+| 8 | Dev bypass link | `resources/views/public/assessment/index.blade.php` | 171 | Gated by `@if(!env('STRIPE_SECRET') \|\| app()->environment('local','testing'))` | Route also gated identically in `routes/web.php:46` — only shows when Stripe is not configured | ⚠️ Properly gated — ensure `STRIPE_SECRET` is set in production `.env` |
+
+## STRUCTURAL / GLOBAL FIXES
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 9a | Turnaround: 72 hours | `resources/views/public/home.blade.php` | 147 | `within 72 hours` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9b | Turnaround: 5 working days | `resources/views/public/home.blade.php` | 165 | `within 5 working days` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9c | Turnaround: 5–7 days (report) | `resources/views/public/service-show.blade.php` | 44 | `within 5–7 days` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9d | Turnaround: 5–7 days (repeat) | `resources/views/public/service-show.blade.php` | 190 | `within 5–7 days` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9e | Turnaround: 24-Hour Review | `resources/views/public/hcp-referral.blade.php` | 39 | `24-Hour Review...within one business day` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9f | Turnaround: one business day | `resources/views/public/hcp-referral-thanks.blade.php` | 13 | `within one business day` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9g | Turnaround: 48 hours (cancellation) | `resources/views/public/faq.blade.php` | 13 | `within 48 hours of the scheduled assessment date` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 9h | Turnaround: five working days | `resources/views/public/faq.blade.php` | 24 | `within five working days after the assessment` | N/A — flagged for client confirmation | ⚠️ Flag |
+| 10 | Services hero anchor `#specialist-assessments` | `resources/views/public/services.blade.php` | 47, 119 | Button links to `#specialist-assessments`; section has `id="specialist-assessments"` | Anchor exists and matches | ✅ Verified |
+| 11 | Admin Login removal check | `resources/views/layouts/app.blade.php` | 449-452 | Commented out in Batch 1 | Not visible on public pages | ✅ Verified |
+| 12 | HCP privacy claims consistency | `resources/views/public/hcp-referral.blade.php` | 38, 213 | Line 38: `compliance with medical privacy standards`; Line 213: `compliance with GDPR` | Both now say `encrypted and stored securely in compliance with GDPR` | ✅ Fixed |
+
+## Server-side actions required (cumulative)
+
+1. Update the assessment fee in the database: `UPDATE settings SET value='235' WHERE key='assessment_fee';`
+2. If RSA guideline PDF links are needed, use: `https://www.rsa.ie/docs/default-source/road-safety/slainte-agus-tiomaint/medical-fitness-to-drive-guidelines-2026.pdf?sfvrsn=a3301610_2`
+3. **Testimonials (manual DB fix needed):**
+   - Dr Sharon Healy: quote appears truncated ending with 'I have no hesitation in' — restore full quote in testimonials table
+   - Fr. Patrick O'Keeffe, C.Ss.R.: name/location is duplicated in the testimonials table — remove the duplicate
+4. **Add 5 new FAQ questions** via admin panel at `/admin/cms-pages/9/edit` (see list above)
+5. **Ensure `STRIPE_SECRET` is set** in production `.env` so the dev bypass link does not appear on the live Book an Assessment page
+6. **Turnaround times** (items 9a-9h above): confirm with client whether 72h, 5 working days, 5-7 days, 24h, and 48h cancellation window are all correct
