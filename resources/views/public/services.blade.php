@@ -10,8 +10,8 @@ $featured = [
     ['slug' => 'stroke',      'title' => 'Stroke & ABI',              'desc' => 'Evaluation of physical motor control, visual field integrity, and executive function following brain injury.',           'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
     ['slug' => 'neurological-disorders', 'title' => 'Neurological Disorders', 'desc' => "Assessment for Parkinson's, MS, and other progressive conditions affecting coordination and reaction time.", 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
     ['slug' => 'congenital-disorders',   'title' => 'Physical Disabilities',  'desc' => 'Identifying necessary vehicle modifications and controls for drivers with congenital or acquired mobility limitations.', 'icon' => 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636'],
-    {{-- ORIGINAL: DAI feedback 26-06-26 --}}
-    {{-- ['slug' => 'your-health-and-driving','title' => 'The Aging Driver',        'desc' => 'Supportive evaluations for seniors to extend safe driving years through refresher training and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'], --}}
+    // ORIGINAL: DAI feedback 26-06-26
+    // ['slug' => 'your-health-and-driving','title' => 'The Aging Driver',        'desc' => 'Supportive evaluations for seniors to extend safe driving years through refresher training and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
     ['slug' => 'your-health-and-driving','title' => 'The Ageing Driver',        'desc' => 'Supportive evaluations for seniors to extend safe driving years through refresher training and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
     ['slug' => 'auditory-visual-sensory-loss', 'title' => 'Vision Impairment', 'desc' => 'Functional vision assessments beyond standard eye exams, testing contrast sensitivity and peripheral awareness.', 'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'],
 ];
@@ -91,9 +91,8 @@ $moreConditions = [
 
             {{-- Right: 2×2 feature boxes --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {{-- ORIGINAL: DAI feedback 26-06-26 ['Clinical Rigor', ...] → ['Clinical Rigour', ...] --}}
                 @foreach([
-                    {{-- ORIGINAL: DAI feedback 26-06-26 --}}
-                    {{-- ['Clinical Rigor',      'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and RSA approved. With an average of twelve years of experience, each assessor has a strong history in the industry.'], --}}
                     ['Clinical Rigour',      'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and RSA approved. With an average of twelve years of experience, each assessor has a strong history in the industry.'],
                     ['Safe Mobility',       'We commit to keeping you on the road safely through vehicle modification recommendations, helpful restrictive licensing or specialised training recommendations.'],
                     ['Independent Status',  'Neutral third-party perspective trusted by licensing authorities and healthcare practitioners nationwide.'],
