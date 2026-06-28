@@ -175,16 +175,18 @@ $moreConditions = [
             <a href="{{ route('service.show', $item['slug']) }}"
                class="bg-white rounded-xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-0.5 hover:shadow-md cursor-pointer"
                style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid rgba(25,28,29,0.08);border-left:4px solid hsl(215 81% 23%)">
+                {{-- ORIGINAL: DAI feedback 26-06-26 icon bg was hsl(210 11% 96%) --}}
                 <div class="w-11 h-11 rounded-xl flex items-center justify-center"
-                     style="background:hsl(210 11% 96%)">
+                     style="background:hsl(215 81% 23%)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                         style="color:hsl(215 81% 23%)" stroke-width="1.75">
+                         style="color:#fff" stroke-width="1.75">
                         <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}"/>
                     </svg>
                 </div>
                 <div>
+                    {{-- ORIGINAL: DAI feedback 26-06-26 title color was #111827 --}}
                     <p class="font-display font-bold text-base mb-2"
-                       style="letter-spacing:-0.01em;color:#111827;font-family:Manrope,sans-serif">
+                       style="letter-spacing:-0.01em;color:hsl(215 81% 23%);font-family:Manrope,sans-serif">
                         {{ $item['title'] }}
                     </p>
                     <p class="text-base leading-relaxed" style="color:#6b7280">{{ $item['desc'] }}</p>
@@ -209,9 +211,12 @@ $moreConditions = [
             <div class="flex flex-wrap justify-center gap-3">
                 @foreach($moreConditions as $cond)
                 {{-- ORIGINAL: DAI feedback 26-06-26 added brand border colour --}}
+                {{-- ORIGINAL: DAI feedback 26-06-26 improved hover to navy bg + white text --}}
                 <a href="{{ route('service.show', $cond['slug']) }}"
-                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:shadow-sm"
-                   style="color:hsl(215 81% 23%);border-color:hsl(215 81% 23% / 0.3)">
+                   class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:shadow-sm hover:text-white"
+                   style="color:hsl(215 81% 23%);border-color:hsl(215 81% 23%);background:hsl(215 81% 23% / 0.05)"
+                   onmouseover="this.style.background='hsl(215 81% 23%)';this.style.color='#fff'"
+                   onmouseout="this.style.background='hsl(215 81% 23% / 0.05)';this.style.color='hsl(215 81% 23%)'">
                     {{ $cond['title'] }}
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

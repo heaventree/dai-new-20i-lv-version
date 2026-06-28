@@ -88,7 +88,8 @@ $assessmentSteps = [
                 <div class="mb-10">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-1 h-5 rounded-full" style="background:#ffcf00"></div>
-                        <h2 class="font-display text-lg font-extrabold" style="letter-spacing:-0.01em;color:#111827;font-family:Manrope,sans-serif">
+                        {{-- ORIGINAL: DAI feedback 26-06-26 heading colour was #111827 --}}
+                    <h2 class="font-display text-lg font-extrabold" style="letter-spacing:-0.01em;color:hsl(215 81% 23%);font-family:Manrope,sans-serif">
                             Overview
                         </h2>
                     </div>
@@ -117,14 +118,15 @@ $assessmentSteps = [
                 {{-- How it Affects Driving --}}
                 @if(count($impactItems))
                 <div class="rounded-2xl p-6 mb-10" style="background:hsl(210 11% 96%)">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 heading colour was #111827, border alternated --}}
                     <h2 class="font-display text-lg font-extrabold mb-4"
-                        style="letter-spacing:-0.01em;color:#111827;font-family:Manrope,sans-serif">
+                        style="letter-spacing:-0.01em;color:hsl(215 81% 23%);font-family:Manrope,sans-serif">
                         How it Affects Driving
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         @foreach($impactItems as $i => $item)
                         <div class="bg-white rounded-xl p-5"
-                             style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border-left:{{ $i % 2 === 1 ? '3px solid #ffcf00' : '3px solid transparent' }}">
+                             style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border-left:3px solid {{ $i % 2 === 0 ? 'hsl(215 81% 23%)' : '#ffcf00' }}">
                             <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
                                  style="background:hsl(210 11% 95%)">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -151,8 +153,9 @@ $assessmentSteps = [
 
                 {{-- The Assessment Process --}}
                 <div class="mb-8">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 heading colour was #111827 --}}
                     <h2 class="font-display text-lg font-extrabold mb-5"
-                        style="letter-spacing:-0.01em;color:#111827;font-family:Manrope,sans-serif">
+                        style="letter-spacing:-0.01em;color:hsl(215 81% 23%);font-family:Manrope,sans-serif">
                         The Assessment Process
                     </h2>
                     <div class="space-y-5">
@@ -280,10 +283,11 @@ $otherServices = \App\Models\CmsPage::where('slug', 'like', 'service-%')
         </h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             @foreach($otherServices as $other)
+            {{-- ORIGINAL: DAI feedback 26-06-26 added border-left + navy title --}}
             <a href="{{ route('service.show', Str::after($other->slug, 'service-')) }}"
                class="group bg-white rounded-xl p-5 flex flex-col justify-between transition-all hover:-translate-y-0.5"
-               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06)">
-                <p class="font-semibold text-sm leading-snug" style="color:#111827">{{ $other->title }}</p>
+               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border-left:3px solid hsl(215 81% 23%)">
+                <p class="font-semibold text-sm leading-snug" style="color:hsl(215 81% 23%)">{{ $other->title }}</p>
                 <div class="flex justify-end mt-4">
                     <div class="w-7 h-7 rounded-full flex items-center justify-center"
                          style="background:hsl(215 81% 23%)">
