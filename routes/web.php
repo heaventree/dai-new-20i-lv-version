@@ -65,6 +65,7 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
     Route::post('/applications/{application}/status', [ApplicationsController::class, 'updateStatus'])->name('applications.status');
     Route::get('/hcp-referrals', [HcpReferralsController::class, 'index'])->name('hcp-referrals.index');
     Route::get('/hcp-referrals/{hcpReferral}', [HcpReferralsController::class, 'show'])->name('hcp-referrals.show');
+    Route::get('/hcp-referrals/{hcpReferral}/document', [HcpReferralsController::class, 'downloadDocument'])->name('hcp-referrals.document');
     Route::get('/payments', [PaymentsController::class, 'index'])->name('payments.index');
     Route::get('/contact-submissions', [ContactSubmissionsController::class, 'index'])->name('contact-submissions.index');
     Route::get('/contact-submissions/{contactSubmission}', [ContactSubmissionsController::class, 'show'])->name('contact-submissions.show');

@@ -39,6 +39,18 @@
                 <dt class="text-gray-500 font-medium mb-1">Clinical Notes & Relevant History</dt>
                 <dd class="bg-gray-50 rounded p-3 whitespace-pre-wrap">{{ $hcpReferral->clinical_notes }}</dd>
             </div>
+            {{-- Uploaded document — DAI feedback 26-06-28 --}}
+            @if($hcpReferral->document_path)
+            <div>
+                <dt class="text-gray-500 font-medium mb-1">Supporting Document</dt>
+                <dd class="bg-gray-50 rounded p-3 flex items-center gap-3">
+                    <svg class="w-5 h-5 text-navy shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <a href="{{ route('admin.hcp-referrals.document', $hcpReferral) }}" target="_blank" class="text-navy font-semibold hover:underline">
+                        {{ $hcpReferral->document_name ?: basename($hcpReferral->document_path) }}
+                    </a>
+                </dd>
+            </div>
+            @endif
         </dl>
         <div class="mt-4 flex gap-4 text-xs text-gray-500">
             <span>Status: <strong>{{ ucfirst($hcpReferral->status) }}</strong></span>

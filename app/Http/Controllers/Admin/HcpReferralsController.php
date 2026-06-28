@@ -21,4 +21,16 @@ class HcpReferralsController extends Controller
     {
         return view('admin.hcp-referrals.show', compact('hcpReferral'));
     }
+
+    public function downloadDocument(HcpReferral $hcpReferral)
+    {
+        if (!$hcpReferral->document_path) {
+            abort(404);
+        }
+        $path = storage_path('app/' . $hcpReferral->document_path);
+        if (!file_exists($path)) {
+            abort(404);
+        }
+        return response()->download($path, $hcpReferral->document_name ?: basename($path));
+    }
 }
