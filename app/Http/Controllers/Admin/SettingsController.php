@@ -47,7 +47,8 @@ class SettingsController extends Controller
                 $this->setMenuJson($request, 'footer_user_menu');
                 $this->setIfPresent($request, [
                     'social_facebook', 'social_twitter', 'social_linkedin',
-                    'footer_tagline', 'partner_image_url', 'services_video_url',
+                    // ORIGINAL: DAI feedback 26-06-26 removed services_video_url — now shares FAQ video
+                    'footer_tagline', 'partner_image_url',
                 ]);
                 break;
 

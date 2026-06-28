@@ -55,10 +55,12 @@ $moreConditions = [
     </div>
 </section>
 
-{{-- VIDEO — DAI feedback 26-06-26 --}}
+{{-- VIDEO — shares FAQ page video (DAI feedback 26-06-26, updated to use FAQ CmsPage source) --}}
 @php
-    $svcVideoFile = \App\Models\Setting::get('services_video_file', '');
-    $svcVideoUrl  = \App\Models\Setting::get('services_video_url', '');
+    $faqPage      = \App\Models\CmsPage::where('slug', 'faq')->first();
+    $faqJson      = $faqPage->content_json ?? [];
+    $svcVideoFile = $faqJson['video_file'] ?? '';
+    $svcVideoUrl  = $faqJson['video_url'] ?? '';
     $svcEmbedUrl  = '';
     if (!$svcVideoFile) {
         if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/', $svcVideoUrl, $m)) {

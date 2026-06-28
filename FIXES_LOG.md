@@ -219,3 +219,15 @@
 - **Virus scanning recommendation:** Uploaded HCP referral documents are stored server-side without virus scanning. Consider integrating ClamAV or a cloud scanning service before production use with sensitive medical documents.
 - **Slug renaming:** To fix SEO slugs (e.g. `congenital-disorders` → `physical-disabilities`), update both the `cms_pages.slug` column in the DB AND the `$featured` array in `services.blade.php`. This must be done together to avoid broken links.
 - **Assessment flow restructure (future task):** Flipping to details-first requires: (1) create AssessmentApplication record before payment with status='unpaid', (2) move Stripe checkout to final form step, (3) update success handler to update existing record rather than create new one, (4) handle abandoned unpaid records. This is a full sprint task, not a quick fix.
+
+---
+
+# Batch 5b — Services video shares FAQ source 26-06-28
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 1 | Remove services_video_url from admin settings | `resources/views/admin/settings/index.blade.php` | 313 | Services Page Video URL field | Removed | ✅ Fixed |
+| 2 | Remove services_video_url from controller save | `app/Http/Controllers/Admin/SettingsController.php` | 49 | `services_video_url` in save list | Removed | ✅ Fixed |
+| 3 | Services video now reads FAQ CmsPage video | `resources/views/public/services.blade.php` | 58 | Read from `Setting::get('services_video_url')` | Now queries `CmsPage::where('slug','faq')` and reads `content_json['video_file']` / `content_json['video_url']` | ✅ Fixed |
+
+The Services page video now automatically displays whatever video is set on the FAQ page (via `/admin/cms-pages/9/edit`). No separate admin setting needed.
