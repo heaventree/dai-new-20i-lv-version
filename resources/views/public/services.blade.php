@@ -174,7 +174,7 @@ $moreConditions = [
             {{-- ORIGINAL: DAI feedback 26-06-26 added border-left brand colour + hover border --}}
             <a href="{{ route('service.show', $item['slug']) }}"
                class="bg-white rounded-xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-0.5 hover:shadow-md cursor-pointer"
-               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid rgba(25,28,29,0.08);border-left:4px solid hsl(215 81% 23%)"
+               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid rgba(25,28,29,0.08);border-left:4px solid hsl(215 81% 23%)">
                 <div class="w-11 h-11 rounded-xl flex items-center justify-center"
                      style="background:hsl(210 11% 96%)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
