@@ -58,7 +58,7 @@ $moreConditions = [
 {{-- VIDEO — shares FAQ page video (DAI feedback 26-06-26, updated to use FAQ CmsPage source) --}}
 @php
     $faqPage      = \App\Models\CmsPage::where('slug', 'faq')->first();
-    $faqJson      = $faqPage->content_json ?? [];
+    $faqJson      = $faqPage ? ($faqPage->content_json ?? []) : [];
     $svcVideoFile = $faqJson['video_file'] ?? '';
     $svcVideoUrl  = $faqJson['video_url'] ?? '';
     $svcEmbedUrl  = '';
