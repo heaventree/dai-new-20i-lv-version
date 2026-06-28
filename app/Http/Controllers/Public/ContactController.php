@@ -15,6 +15,9 @@ class ContactController extends Controller
     }
     public function submit(Request $request)
     {
+        if ($request->filled('website_url')) {
+            return back()->with('success', 'Thank you for your message. We will get back to you within 2 business days.');
+        }
         $request->validate([
             'first_name' => 'required|string|max:100',
             'last_name'  => 'required|string|max:100',
@@ -33,7 +36,8 @@ class ContactController extends Controller
             'message'    => $fullMessage,
         ]);
         $fullName    = $request->first_name . ' ' . $request->last_name;
-        $adminEmail  = Setting::get('notification_email', 'info@driverassessmentsireland.ie');
+        // ORIGINAL: DAI feedback 26-06-26 default was info@driverassessmentsireland.ie
+        $adminEmail  = Setting::get('notification_email', 'info@dai.ie');
         $emailService = app(EmailService::class);
         $emailService->sendFromTemplate('contact-auto-reply', $request->email, $fullName, [
             'name' => $fullName,

@@ -310,6 +310,17 @@ $s = fn($k, $d='') => \App\Models\Setting::get($k, $d);
            placeholder="https://example.com/partner-logo.png" class="field-input">
 </div>
 
+{{-- Services Page Video — DAI feedback 26-06-26 --}}
+<div class="settings-card">
+    <h2 class="card-title">Services Page Video</h2>
+    <p class="card-desc" style="margin-bottom:12px">Add a video to the Services page. Paste a YouTube or Vimeo URL. Leave blank to hide.</p>
+    <div class="form-field">
+        <label class="field-label">YouTube or Vimeo URL</label>
+        <input type="url" name="services_video_url" value="{{ $s('services_video_url') }}"
+               placeholder="https://www.youtube.com/watch?v=..." class="field-input">
+    </div>
+</div>
+
 {{-- Header Navigation --}}
 <div class="settings-card">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">

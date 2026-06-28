@@ -7,7 +7,8 @@ class HcpReferral extends Model
         'hcp_name','hcp_practice','hcp_email','hcp_phone',
         'alt_contact_name','alt_contact_details',
         'patient_full_name','patient_dob',
-        'reason_for_referral','clinical_notes','consent','status','synced_to_sheets',
+        'reason_for_referral','clinical_notes','document_path','document_name',
+        'consent','status','synced_to_sheets',
     ];
     protected $casts = ['consent'=>'boolean','synced_to_sheets'=>'boolean','patient_dob'=>'date'];
 }

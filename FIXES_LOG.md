@@ -165,3 +165,57 @@
 | 5c | Fee read: FAQ page | `app/Http/Controllers/Public/FaqController.php` | 10 | `Setting::get('assessment_fee', '235')` | Already dynamic | ✅ Verified |
 | 5d | Fee display: booking page | `resources/views/public/assessment/index.blade.php` | 15, 87, 143 | `€{{ $fee }}` | Already dynamic via controller `$fee` variable | ✅ Verified |
 | 5e | Fee display: FAQ fallback | `resources/views/public/faq.blade.php` | 12, 21 | `€' . $fee . '` | Already dynamic via controller `$fee` variable | ✅ Verified |
+
+---
+
+# Batch 5 — Services UI, Contact Form, Video, Remaining Fixes 26-06-26
+
+## SERVICES PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 1 | RSA Guidelines link on condition detail pages | `resources/views/public/service-show.blade.php` | 235 | No RSA link | Added RSA 2026 guidelines PDF link card in sidebar on every condition page | ✅ Fixed |
+| 2 | Hardcoded €235 in sidebar | `resources/views/public/service-show.blade.php` | 186 | `€235` hardcoded | Now reads from `Setting::get('assessment_fee', '235')` | ✅ Fixed |
+| 3a | Slug mismatch: Physical Disabilities | `resources/views/public/services.blade.php` | 12 | Slug `congenital-disorders` → DB record `service-congenital-disorders` | Slug matches DB — changing would break existing record. Rename via admin panel if needed | ⚠️ Log only — rename slug in DB if desired |
+| 3b | Slug mismatch: Ageing Driver | `resources/views/public/services.blade.php` | 15 | Slug `your-health-and-driving` → DB record `service-your-health-and-driving` | Same — slug matches DB | ⚠️ Log only — rename slug in DB if desired |
+| 4 | 'Learn more' link visibility | `resources/views/public/services.blade.php` | 156 | No underline | Added underline + offset for clear link styling | ✅ Fixed |
+| 5 | Featured condition card colours | `resources/views/public/services.blade.php` | 140 | No brand colour border | Added 4px navy left border | ✅ Fixed |
+| 6 | Sub-condition pill colours | `resources/views/public/services.blade.php` | 177 | Faint border, `font-medium` | Navy-tinted border, `font-semibold`, hover lift + shadow | ✅ Fixed |
+| 7 | Service detail page colours | `resources/views/public/service-show.blade.php` | N/A | Already uses navy headings, gold CTAs, navy sidebar | Brand colours already consistent | ✅ Verified |
+
+## CONTACT PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 8 | Contact form email default | `app/Http/Controllers/Public/ContactController.php` | 36 | Default `info@driverassessmentsireland.ie` | Default `info@dai.ie` | ✅ Fixed |
+| 9 | Honeypot spam protection | `app/Http/Controllers/Public/ContactController.php` + `contact.blade.php` | 17, 51 | No honeypot | Added hidden `website_url` field; if filled, silently rejects | ✅ Fixed |
+| 10 | Privacy statement | `resources/views/public/contact.blade.php` | 116 | No privacy text | Added GDPR privacy line below submit button | ✅ Fixed |
+
+## HCP REFERRAL PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 11a | File upload field | `resources/views/public/hcp-referral.blade.php` | 174 | No file upload | Added optional document upload (PDF, DOC, DOCX, JPG, PNG, max 5MB) | ✅ Fixed |
+| 11b | File upload controller | `app/Http/Controllers/Public/HcpReferralController.php` | 27 | No file handling | Added validation + storage to `storage/app/referral-documents/` | ✅ Fixed |
+| 11c | File upload migration | `database/migrations/2026_06_28_000001_add_document_path_to_hcp_referrals.php` | N/A | No columns | Added `document_path` and `document_name` to `hcp_referrals` table | ✅ Fixed |
+| 11d | File upload model | `app/Models/HcpReferral.php` | 7 | No document fields | Added `document_path`, `document_name` to fillable | ✅ Fixed |
+
+## SERVICES PAGE VIDEO
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 12a | Video section on services page | `resources/views/public/services.blade.php` | 58 | No video | Added YouTube/Vimeo embed between hero and main content (reads from `services_video_url` setting) | ✅ Fixed |
+| 12b | Admin settings for services video | `resources/views/admin/settings/index.blade.php` | 312 | No field | Added video URL field under Menus & Social tab | ✅ Fixed |
+| 12c | Controller save | `app/Http/Controllers/Admin/SettingsController.php` | 49 | Not saved | Added `services_video_url` to menus tab save list | ✅ Fixed |
+
+## BOOK AN ASSESSMENT PAGE
+
+| # | Item | File | Line | Before | After | Status |
+|---|------|------|------|--------|-------|--------|
+| 13 | Flip order (details first, payment last) | N/A | N/A | Payment is step 0, details steps 1-5 | Requires significant restructuring: Stripe session creation must move to final step, AssessmentApplication record must be created before payment, status flow needs redesign | ⚠️ Future task — logged below |
+
+## Notes
+
+- **Virus scanning recommendation:** Uploaded HCP referral documents are stored server-side without virus scanning. Consider integrating ClamAV or a cloud scanning service before production use with sensitive medical documents.
+- **Slug renaming:** To fix SEO slugs (e.g. `congenital-disorders` → `physical-disabilities`), update both the `cms_pages.slug` column in the DB AND the `$featured` array in `services.blade.php`. This must be done together to avoid broken links.
+- **Assessment flow restructure (future task):** Flipping to details-first requires: (1) create AssessmentApplication record before payment with status='unpaid', (2) move Stripe checkout to final form step, (3) update success handler to update existing record rather than create new one, (4) handle abandoned unpaid records. This is a full sprint task, not a quick fix.

@@ -55,6 +55,39 @@ $moreConditions = [
     </div>
 </section>
 
+{{-- VIDEO — DAI feedback 26-06-26 --}}
+@php
+    $svcVideoFile = \App\Models\Setting::get('services_video_file', '');
+    $svcVideoUrl  = \App\Models\Setting::get('services_video_url', '');
+    $svcEmbedUrl  = '';
+    if (!$svcVideoFile) {
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/', $svcVideoUrl, $m)) {
+            $svcEmbedUrl = 'https://www.youtube.com/embed/' . $m[1];
+        } elseif (preg_match('/vimeo\.com\/(\d+)/', $svcVideoUrl, $m)) {
+            $svcEmbedUrl = 'https://player.vimeo.com/video/' . $m[1];
+        }
+    }
+@endphp
+@if($svcVideoFile || $svcEmbedUrl)
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto">
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:0.75rem;box-shadow:0 4px 16px rgba(0,0,0,0.1)">
+                @if($svcVideoFile)
+                <video controls playsinline preload="metadata"
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;border-radius:0.75rem">
+                    <source src="{{ asset(ltrim($svcVideoFile, '/')) }}" type="video/{{ pathinfo($svcVideoFile, PATHINFO_EXTENSION) }}">
+                </video>
+                @else
+                <iframe src="{{ $svcEmbedUrl }}" frameborder="0" allowfullscreen
+                        style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
 {{-- Our Objective & Independence --}}
 <section class="py-24 bg-white">
     <div class="container mx-auto px-6">
@@ -136,9 +169,10 @@ $moreConditions = [
         {{-- 6-card grid --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             @foreach($featured as $item)
+            {{-- ORIGINAL: DAI feedback 26-06-26 added border-left brand colour + hover border --}}
             <a href="{{ route('service.show', $item['slug']) }}"
                class="bg-white rounded-xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-0.5 hover:shadow-md cursor-pointer"
-               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid rgba(25,28,29,0.08)">
+               style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid rgba(25,28,29,0.08);border-left:4px solid hsl(215 81% 23%)"
                 <div class="w-11 h-11 rounded-xl flex items-center justify-center"
                      style="background:hsl(210 11% 96%)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -153,8 +187,9 @@ $moreConditions = [
                     </p>
                     <p class="text-base leading-relaxed" style="color:#6b7280">{{ $item['desc'] }}</p>
                 </div>
+                {{-- ORIGINAL: DAI feedback 26-06-26 added underline + hover styles for link visibility --}}
                 <span class="inline-flex items-center gap-1.5 text-sm font-semibold mt-auto"
-                      style="color:hsl(215 81% 23%)">
+                      style="color:hsl(215 81% 23%);text-decoration:underline;text-underline-offset:3px">
                     Learn more
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -171,9 +206,10 @@ $moreConditions = [
             </p>
             <div class="flex flex-wrap justify-center gap-3">
                 @foreach($moreConditions as $cond)
+                {{-- ORIGINAL: DAI feedback 26-06-26 added brand border colour --}}
                 <a href="{{ route('service.show', $cond['slug']) }}"
-                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-sm font-medium border hover:border-primary/40 transition-colors"
-                   style="color:hsl(215 81% 23%);border-color:rgba(25,28,29,0.12)">
+                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:shadow-sm"
+                   style="color:hsl(215 81% 23%);border-color:hsl(215 81% 23% / 0.3)">
                     {{ $cond['title'] }}
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

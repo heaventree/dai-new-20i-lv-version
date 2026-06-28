@@ -78,7 +78,8 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('hcp-referral.submit') }}" class="space-y-8">
+                {{-- ORIGINAL: DAI feedback 26-06-26 added enctype for file upload --}}
+                <form method="POST" action="{{ route('hcp-referral.submit') }}" enctype="multipart/form-data" class="space-y-8">
                     @csrf
 
                     {{-- Section 1 — HCP Details --}}
@@ -169,6 +170,14 @@
                                           placeholder="Brief summary of condition and specific concerns regarding driving safety..."
                                           class="w-full px-4 py-2.5 rounded-lg bg-white text-gray-900 text-sm border outline-none transition-all focus:ring-2 resize-vertical placeholder-gray-400 @error('clinical_notes') border-red-400 @else border-gray-200 @enderror">{{ old('clinical_notes') }}</textarea>
                                 @error('clinical_notes')<p class="text-red-500 text-xs">{{ $message }}</p>@enderror
+                            </div>
+                            {{-- Document upload — DAI feedback 26-06-26 --}}
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-sm font-medium text-gray-800">Upload Supporting Documents <span style="font-weight:400;color:#9ca3af">(optional)</span></label>
+                                <input name="document" type="file" accept=".pdf,.doc,.docx,.jpg,.png"
+                                       class="w-full px-4 py-2.5 rounded-lg bg-white text-gray-900 text-sm border border-gray-200 outline-none transition-all focus:ring-2">
+                                <p class="text-xs text-gray-400">PDF, DOC, DOCX, JPG or PNG. Max 5 MB.</p>
+                                @error('document')<p class="text-red-500 text-xs">{{ $message }}</p>@enderror
                             </div>
                         </div>
                     </div>

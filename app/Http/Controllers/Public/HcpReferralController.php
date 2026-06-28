@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Services\EmailService;
 use App\Services\GoogleSheetsService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 class HcpReferralController extends Controller
 {
     public function index() { return view('public.hcp-referral'); }
@@ -22,8 +23,24 @@ class HcpReferralController extends Controller
             'patient_dob'         => 'required|date|before_or_equal:today',
             'reason_for_referral' => 'required|string',
             'clinical_notes'      => 'required|string',
+            'document'            => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:5120',
             'consent'             => 'accepted',
         ]);
+
+        $docPath = null;
+        $docName = null;
+        if ($request->hasFile('document')) {
+            $file    = $request->file('document');
+            $docName = $file->getClientOriginalName();
+            $dest    = storage_path('app/referral-documents');
+            if (!File::isDirectory($dest)) {
+                File::makeDirectory($dest, 0755, true);
+            }
+            $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', $docName);
+            $file->move($dest, $filename);
+            $docPath = 'referral-documents/' . $filename;
+        }
+
         $referral = HcpReferral::create([
             'hcp_name'            => $request->hcp_name,
             'hcp_practice'        => $request->hcp_practice,
@@ -35,6 +52,8 @@ class HcpReferralController extends Controller
             'patient_dob'         => $request->patient_dob,
             'reason_for_referral' => $request->reason_for_referral,
             'clinical_notes'      => $request->clinical_notes,
+            'document_path'       => $docPath,
+            'document_name'       => $docName,
             'consent'             => true,
         ]);
         $sheets = app(GoogleSheetsService::class);

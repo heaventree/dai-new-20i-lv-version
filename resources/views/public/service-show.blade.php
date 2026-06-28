@@ -182,8 +182,9 @@ $assessmentSteps = [
                      style="background:radial-gradient(ellipse at 70% 30%,hsl(215 81% 23%) 0%,hsl(215 81% 14%) 100%)">
                     <p class="font-bold text-sm mb-1">Book an Assessment</p>
                     <div class="flex items-baseline gap-1.5 mb-5">
+                        {{-- ORIGINAL: DAI feedback 26-06-26 hardcoded €235 --}}
                         <span class="font-display text-4xl font-extrabold"
-                              style="color:#ffcf00;letter-spacing:-0.02em;font-family:Manrope,sans-serif">€235</span>
+                              style="color:#ffcf00;letter-spacing:-0.02em;font-family:Manrope,sans-serif">€{{ number_format((float)\App\Models\Setting::get('assessment_fee', '235'), 0) }}</span>
                     </div>
                     <ul class="space-y-2.5 mb-6">
                         @foreach([
@@ -231,6 +232,20 @@ $assessmentSteps = [
                         </svg>
                     </a>
                 </div>
+
+                {{-- RSA Guidelines — DAI feedback 26-06-26 --}}
+                <a href="https://www.rsa.ie/docs/default-source/road-safety/slainte-agus-tiomaint/medical-fitness-to-drive-guidelines-2026.pdf?sfvrsn=a3301610_2"
+                   target="_blank" rel="noopener noreferrer"
+                   class="flex items-center gap-3 bg-white rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+                   style="box-shadow:0px 4px 12px rgba(25,28,29,0.06);border:1px solid hsl(215 81% 23% / 0.15)">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm" style="color:hsl(215 81% 23%)">RSA Medical Fitness to Drive Guidelines 2026</p>
+                        <p class="text-xs" style="color:#6b7280">View official RSA guidelines (PDF)</p>
+                    </div>
+                </a>
 
                 {{-- Location card --}}
                 <div class="rounded-2xl overflow-hidden relative" style="height:130px;background:radial-gradient(ellipse at 60% 50%,hsl(215 81% 23%) 0%,hsl(215 81% 14%) 100%)">

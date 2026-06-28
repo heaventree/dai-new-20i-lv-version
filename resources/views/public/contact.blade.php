@@ -47,6 +47,10 @@
 
                 <form method="POST" action="{{ route('contact.submit') }}" class="space-y-5">
                     @csrf
+                    {{-- Honeypot — DAI feedback 26-06-26 --}}
+                    <div style="position:absolute;left:-9999px" aria-hidden="true">
+                        <input type="text" name="website_url" tabindex="-1" autocomplete="off">
+                    </div>
 
                     {{-- Row 1: Name + Email --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -109,6 +113,8 @@
                         Send Inquiry
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                     </button>
+                    {{-- Privacy statement — DAI feedback 26-06-26 --}}
+                    <p class="text-xs text-gray-400 mt-3 leading-relaxed">Your information is handled in accordance with our Privacy Policy and GDPR guidelines.</p>
                 </form>
             </div>
 
