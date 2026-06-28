@@ -168,7 +168,8 @@
                 </a>
             </p>
 
-            @if(!env('STRIPE_SECRET') || app()->environment('local','testing'))
+            {{-- ORIGINAL: DAI feedback 26-06-26 @if(!env('STRIPE_SECRET') || app()->environment('local','testing')) --}}
+            @if(!\App\Models\Setting::get('stripe_secret_key_test') || app()->environment('local','testing'))
             {{-- Dev-only bypass --}}
             <div class="border border-dashed border-amber-300 rounded-xl p-4 bg-amber-50 text-center">
                 <p class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2">Dev / Test Mode</p>

@@ -13,6 +13,14 @@ use Stripe\Checkout\Session as StripeSession;
 
 class AssessmentController extends Controller
 {
+    private function stripeSecret(): ?string
+    {
+        $mode = Setting::get('stripe_mode', 'test');
+        return $mode === 'live'
+            ? Setting::get('stripe_secret_key_live')
+            : Setting::get('stripe_secret_key_test');
+    }
+
     public function index()
     {
         $fee = number_format((float)Setting::get('assessment_fee', '235'), 0);
@@ -21,7 +29,9 @@ class AssessmentController extends Controller
 
     public function testBypass()
     {
-        if (app()->environment('production') && env('STRIPE_SECRET')) {
+        // ORIGINAL: DAI feedback 26-06-26
+        // if (app()->environment('production') && env('STRIPE_SECRET')) {
+        if (app()->environment('production') && $this->stripeSecret()) {
             abort(404);
         }
         $token = Str::uuid()->toString();
@@ -41,11 +51,8 @@ class AssessmentController extends Controller
     {
         $request->validate(['email' => 'required|email', 'name' => 'required|string|max:200']);
         $fee = (int)((float)Setting::get('assessment_fee', '235') * 100);
-        $stripeMode   = Setting::get('stripe_mode', 'test');
-        $stripeSecret = $stripeMode === 'live'
-            ? (Setting::get('stripe_secret_key_live') ?: env('STRIPE_SECRET'))
-            : (Setting::get('stripe_secret_key_test') ?: env('STRIPE_SECRET'));
-        Stripe::setApiKey($stripeSecret);
+        // ORIGINAL: DAI feedback 26-06-26 — removed env('STRIPE_SECRET') fallback, keys come from DB settings
+        Stripe::setApiKey($this->stripeSecret());
         try {
             $session = StripeSession::create([
                 'payment_method_types' => ['card'],
@@ -76,11 +83,8 @@ class AssessmentController extends Controller
         $existing = AssessmentApplication::where('stripe_session_id', $sessionId)->first();
         if ($existing) return view('public.assessment.application', ['application' => $existing, 'step' => 1]);
         try {
-            $stripeMode   = Setting::get('stripe_mode', 'test');
-            $stripeSecret = $stripeMode === 'live'
-                ? (Setting::get('stripe_secret_key_live') ?: env('STRIPE_SECRET'))
-                : (Setting::get('stripe_secret_key_test') ?: env('STRIPE_SECRET'));
-            Stripe::setApiKey($stripeSecret);
+            // ORIGINAL: DAI feedback 26-06-26 — removed env('STRIPE_SECRET') fallback
+            Stripe::setApiKey($this->stripeSecret());
             $session = StripeSession::retrieve($sessionId);
             if ($session->payment_status !== 'paid') return redirect()->route('assessment.index')->with('error', 'Payment not completed.');
 

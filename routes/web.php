@@ -43,7 +43,9 @@ Route::get('/hcp-referral-form/thank-you', [HcpReferralController::class, 'thank
 Route::get('/arrange-assessment', [AssessmentController::class, 'index'])->name('assessment.index');
 Route::post('/arrange-assessment/checkout', [AssessmentController::class, 'createCheckout'])->name('assessment.checkout');
 Route::get('/arrange-assessment/success', [AssessmentController::class, 'success'])->name('assessment.success');
-if (app()->environment('local', 'testing') || !env('STRIPE_SECRET')) {
+// ORIGINAL: DAI feedback 26-06-26 — env('STRIPE_SECRET') → DB settings check
+// if (app()->environment('local', 'testing') || !env('STRIPE_SECRET')) {
+if (app()->environment('local', 'testing') || !\App\Models\Setting::get('stripe_secret_key_test')) {
     Route::get('/arrange-assessment/test-bypass', [AssessmentController::class, 'testBypass'])->name('assessment.test-bypass');
 }
 Route::get('/assessment/{token}', [AssessmentController::class, 'application'])->name('assessment.application');
