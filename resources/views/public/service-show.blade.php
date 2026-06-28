@@ -218,7 +218,8 @@ $assessmentSteps = [
                 <div class="bg-white rounded-2xl p-6" style="box-shadow:0px 4px 12px rgba(25,28,29,0.06)">
                     <p class="font-bold text-sm mb-2" style="color:#111827">Healthcare Professionals</p>
                     <p class="text-xs leading-relaxed mb-4" style="color:#6b7280">
-                        Referring a patient with this condition? We provide streamlined reporting for GPs, Occupational Therapists, and Consultants.
+                        {{-- ORIGINAL: DAI feedback 26-06-26 ...for GPs, Occupational Therapists, and Consultants. --}}
+                        Referring a patient with this condition? We provide streamlined reporting for GPs, Occupational Therapists, Consultants, and all Health Care Professionals.
                     </p>
                     <a href="{{ route('hcp-referral') }}"
                        class="inline-flex items-center gap-1.5 text-sm font-bold transition-all hover:gap-2.5"

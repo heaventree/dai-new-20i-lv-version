@@ -13,7 +13,8 @@ $featured = [
     // ORIGINAL: DAI feedback 26-06-26
     // ['slug' => 'your-health-and-driving','title' => 'The Aging Driver',        'desc' => 'Supportive evaluations for seniors to extend safe driving years through refresher training and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
     ['slug' => 'your-health-and-driving','title' => 'The Ageing Driver',        'desc' => 'Supportive evaluations for seniors to extend safe driving years through refresher training and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
-    ['slug' => 'auditory-visual-sensory-loss', 'title' => 'Vision Impairment', 'desc' => 'Functional vision assessments beyond standard eye exams, testing contrast sensitivity and peripheral awareness.', 'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'],
+    // ORIGINAL: DAI feedback 26-06-26 'Vision Impairment'
+    ['slug' => 'auditory-visual-sensory-loss', 'title' => 'Vision & Hearing Impairment', 'desc' => 'Functional vision assessments beyond standard eye exams, testing contrast sensitivity and peripheral awareness.', 'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'],
 ];
 
 $moreConditions = [
@@ -72,9 +73,10 @@ $moreConditions = [
                     Our sole focus is the intersection of medical health and road safety, operating in harmony with stakeholders but independently to ensure fair outcomes.
                 </p>
                 <ul class="space-y-3">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 'Multi-disciplinary specialist review' → 'Specialist Assessment Review' --}}
                     @foreach([
                         'Evidence-based clinical protocols',
-                        'Multi-disciplinary specialist review',
+                        'Specialist Assessment Review',
                         'Focused on preserving driver autonomy',
                     ] as $item)
                     <li class="flex items-center gap-3 text-base" style="color:#111827">
@@ -93,8 +95,9 @@ $moreConditions = [
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {{-- ORIGINAL: DAI feedback 26-06-26 ['Clinical Rigor', ...] → ['Clinical Rigour', ...] --}}
                 @foreach([
-                    ['Clinical Rigour',      'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and RSA approved. With an average of twelve years of experience, each assessor has a strong history in the industry.'],
-                    ['Safe Mobility',       'We commit to keeping you on the road safely through vehicle modification recommendations, helpful restrictive licensing or specialised training recommendations.'],
+                    {{-- ORIGINAL: DAI feedback 26-06-26 Clinical Rigour + twelve years + helpful restrictive licensing --}}
+                    ['Experienced Driver Assessors', 'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and RSA approved. With an average of 10+ years of experience, each assessor has a strong history in the industry.'],
+                    ['Safe Mobility',       'We commit to keeping you on the road safely through vehicle modification recommendations, guidance on conditional, temporary medical permits or restricted licensing.'],
                     ['Independent Status',  'Neutral third-party perspective trusted by licensing authorities and healthcare practitioners nationwide.'],
                     ['Compassionate Care',  'We understand the importance of driving for your life. Our assessments are conducted with dignity and empathy.'],
                 ] as [$title, $desc])

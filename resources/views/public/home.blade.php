@@ -93,12 +93,11 @@ $_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'Medical
                 {{-- Why Choose Us --}}
                 <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:hsl(215deg 81% 23%);">Why Choose Us</p>
                 <div class="grid grid-cols-2 gap-3">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 ['HSE Approved', ...] → recommended provider text --}}
                     @foreach([
                         ['RSA Registered',             'Fully Compliant Provider'],
                         ['Fully Compliant Provider',   'Regulatory Excellence'],
                         ['Garda Vetted',               'Experienced Male and Female Assessors'],
-                        {{-- ORIGINAL: DAI feedback 26-06-26 --}}
-                        {{-- ['HSE Approved',               'Committed to Clinical Excellence'], --}}
                         ['Recommended provider through the National Office for Road Traffic Medicine', 'Committed to Clinical Excellence'],
                     ] as [$title, $sub])
                     <div class="flex items-start gap-2">
@@ -134,7 +133,8 @@ $_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'Medical
                 </div>
                 <p class="font-bold text-sm mb-1" style="color: hsl(215deg 81% 14%);">1. Referral</p>
                 <p class="text-base leading-relaxed" style="color: #414d5f;">
-                    If you are a HCP submit a referral through our <a href="{{ route('hcp-referral') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">secure online portal</a> or self-refer by using the <a href="{{ route('assessment.index') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">Book an Assessment</a> button.
+                    {{-- ORIGINAL: DAI feedback 26-06-26 If you are a HCP submit a referral --}}
+                    If you are an HCP (Healthcare Professional) submit a referral through our <a href="{{ route('hcp-referral') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">secure online portal</a> or self-refer by using the <a href="{{ route('assessment.index') }}" style="color:hsl(215deg 81% 23%);font-weight:600;text-decoration:underline;text-underline-offset:2px">Book an Assessment</a> button.
                 </p>
             </div>
 
@@ -299,8 +299,8 @@ $_schema = json_encode(['@'.'context'=>'https://schema.org','@'.'type'=>'Medical
                 {{-- ORIGINAL: DAI feedback 26-06-26 Start Online Referral --}}
                 HCP Secure Referral
             </a>
-            <a href="{{ route('contact') }}" class="btn-outline-dark">
-                {{-- ORIGINAL: DAI feedback 26-06-26 View Locations --}}
+            {{-- ORIGINAL: DAI feedback 26-06-26 route('contact') + View Locations --}}
+            <a href="{{ route('assessment.index') }}" class="btn-outline-dark">
                 Book an Assessment
             </a>
         </div>

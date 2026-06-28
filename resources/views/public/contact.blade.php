@@ -131,6 +131,16 @@
                                 <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Lackaghbeg, Lackagh, Turloughmore,<br>Athenry, Co. Galway</p>
                             </div>
                         </div>
+                        {{-- Opening Hours — DAI feedback 26-06-26 --}}
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
+                                <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Opening Hours</p>
+                                <p class="text-gray-500 text-xs leading-relaxed mt-0.5">Monday to Friday, 9:00am to 5:00pm</p>
+                            </div>
+                        </div>
                         {{-- Phone --}}
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:hsl(215 81% 23%)">
@@ -159,13 +169,14 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9703.938!2d-8.866!3d53.401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485b5c5c5c5c5c5d%3A0x0!2sTurloughmore%2C+Co.+Galway%2C+Ireland!5e0!3m2!1sen!2sie!4v1776255143325"
                             width="100%" height="200" style="border:0;display:block" allowfullscreen loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade" title="DAI Office Location"></iframe>
-                    <a href="https://maps.google.com/?q=Turloughmore,Athenry,Co.Galway,Ireland"
+                    {{-- ORIGINAL: DAI feedback 26-06-26 Get Directions link removed --}}
+                    {{-- <a href="https://maps.google.com/?q=Turloughmore,Athenry,Co.Galway,Ireland"
                        target="_blank" rel="noopener noreferrer"
                        class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition-all hover:brightness-110"
                        style="background:hsl(215 81% 23%)">
                         <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         Get Directions
-                    </a>
+                    </a> --}}
                 </div>
 
                 {{-- Healthmail note --}}

@@ -49,7 +49,8 @@
                 <div class="space-y-4 text-gray-500 leading-relaxed text-base">
                     <p>Our professional integrity is at the heart of everything we do.</p>
                     <p>Our team is committed to delivering assessments of the highest quality, treating every individual with respect, dignity, and confidentiality in a safe and supportive environment.</p>
-                    <p>Our assessors operate throughout the country, fully qualified and highly experienced, specialising in driver assessment.<br><br>Their clinical rigour ensures you receive an objective, evidence-based evaluation that is trusted by HCPs, the NDLS and families.</p>
+                    {{-- ORIGINAL: DAI feedback 26-06-26 Their clinical rigour ensures --}}
+                    <p>Our assessors operate throughout the country, fully qualified and highly experienced, specialising in driver assessment.<br><br>Their experience and training ensures you receive an objective, evidence-based evaluation that is trusted by HCPs, the NDLS and families.</p>
                     <p>All assessors follow the RSA Medical Fitness to Drive Guidelines 2026, and our reports meet the standards required by the National Driver Licence Service and referring health professionals.</p>
                 </div>
                 <div class="mt-8 flex flex-wrap gap-3">
@@ -77,14 +78,17 @@
                 <h2 class="font-display text-3xl font-extrabold mb-2" style="letter-spacing:-0.02em;font-family:Manrope,sans-serif;color:#1a1a2e">Forward Thinking</h2>
                 <div class="w-10 h-1 rounded-full mb-6" style="background:#ffcf00"></div>
                 <div class="space-y-4 text-gray-500 leading-relaxed text-base mb-8">
-                    <p>As clinicians, we are committed to remaining agile and forward thinking in this rapidly changing landscape.<br><br>We are constantly improving our knowledge, acquiring best practice, and ensuring a high-quality service and experience for our clients.</p>
-                    <p>As a company, we tend to deliver objective, professional, and the best standard of clinical assessment training.</p>
-                    <p>We can ensure our drivers and employees are living a balanced and healthy life.<br><br>We have striven to develop training and pathways across Ireland for occupational therapists interested in driver assessment and rehabilitation.</p>
+                    {{-- ORIGINAL: DAI feedback 26-06-26 As clinicians... --}}
+                    <p>As leaders in providing on-road driver assessments, we are committed to remaining agile and forward thinking in this rapidly changing landscape.<br><br>We are constantly improving our knowledge, acquiring best practice, and ensuring a high-quality service and experience for our clients.</p>
+                    {{-- ORIGINAL: DAI feedback 26-06-26 As a company, we tend to deliver...clinical assessment training. --}}
+                    <p>As a company, we deliver objective, professional, and the best standard of assessment training.</p>
+                    {{-- ORIGINAL: DAI feedback 26-06-26 REMOVED: 'We can ensure our drivers...' and 'We have striven to develop training...' --}}
                 </div>
                 <ul class="space-y-3">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 'Advancing OT driver assessment' → 'Advancing driver assessment' --}}
                     @foreach([
                         'Continuous professional development for all assessors',
-                        'Advancing OT driver assessment pathways nationally',
+                        'Advancing driver assessment pathways nationally',
                         'Embracing technology to improve client outcomes',
                     ] as $item)
                     <li class="flex items-center gap-3 text-base text-gray-800">
@@ -120,13 +124,12 @@
                     <p>We continually strive to be the best possible service for our clients, combining expertise and in-depth knowledge of the landscape within which we operate.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {{-- ORIGINAL: DAI feedback 26-06-26 RSA Compliant→RSA Registered, Guidelines 2025→2026, removed 'clinical' from assessment standards --}}
                     @foreach([
                         ['Shield','Confidentiality','We maintain the confidentiality of any personal, privileged information to the highest standards.','M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
                         ['Users','Fair Treatment','As a company, DAI strives to deliver objective, understanding, and fair treatment of all who may require a Driving Assessment.','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'],
-                        {{-- ORIGINAL: DAI feedback 26-06-26 --}}
-                        {{-- ['Shield','RSA Compliant','All assessments follow RSA Medical Fitness to Drive Guidelines 2025.','M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'], --}}
                         ['Shield','RSA Registered','All assessments follow RSA Medical Fitness to Drive Guidelines 2026.','M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
-                        ['Lightbulb','Research-Led','Committed to evidence-based, best-practice clinical assessment standards.','M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
+                        ['Lightbulb','Research-Led','Committed to evidence-based, best-practice assessment standards.','M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
                     ] as [$icon,$title,$desc,$path])
                     <div class="rounded-xl p-5" style="border-left:3px solid hsl(215 81% 23%);background:hsl(210 11% 97%)">
                         <svg class="h-4 w-4 mb-2" style="color:hsl(215 81% 23%)" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $path }}"/></svg>
@@ -221,7 +224,8 @@
              style="background:#ffcf00">
             <div>
                 <p class="font-display text-2xl font-extrabold leading-tight" style="color:#231b00;letter-spacing:-0.02em;font-family:Manrope,sans-serif">Have questions about our service?</p>
-                <p class="text-base mt-1" style="color:#5a4600">Email our team for assistance.</p>
+                {{-- ORIGINAL: DAI feedback 26-06-26 Email our team for assistance. --}}
+                <p class="text-base mt-1" style="color:#5a4600">Visit our <a href="{{ route('faq') }}" style="color:#231b00;font-weight:700;text-decoration:underline;text-underline-offset:2px">FAQ page</a> or email our team for assistance.</p>
             </div>
             <div class="flex flex-wrap gap-3 shrink-0">
                 <a href="{{ route('contact') }}"

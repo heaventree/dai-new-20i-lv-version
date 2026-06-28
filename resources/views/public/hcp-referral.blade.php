@@ -155,7 +155,8 @@
                                 <select name="reason_for_referral" required
                                         class="w-full px-4 py-2.5 rounded-lg bg-white text-gray-900 text-sm border outline-none transition-all focus:ring-2 @error('reason_for_referral') border-red-400 @else border-gray-200 @enderror">
                                     <option value="">Select an assessment type...</option>
-                                    @foreach(['Neurological Condition','Age-Related Assessment','Physical Disability','Return to Driving Post-Illness','Visual Impairment','Medication Review','Other'] as $opt)
+                                    {{-- ORIGINAL: DAI feedback 26-06-26 old dropdown options --}}
+                                    @foreach(['Cognitive Impairment','Dementia & Memory Loss','Stroke & ABI','Neurological Disorders','Cardiovascular Disorders','Psychiatric Conditions','Renal Conditions','Respiratory & Sleep Disorders','Epilepsy','Diabetes','Physical Disabilities','Learning Difficulties','Age-Related Assessment','Visual & Hearing Impairment','Medication Review','Other'] as $opt)
                                     <option value="{{ $opt }}" {{ old('reason_for_referral') === $opt ? 'selected' : '' }}>{{ $opt }}</option>
                                     @endforeach
                                 </select>
@@ -208,7 +209,8 @@
                 {{-- ORIGINAL: DAI feedback 26-06-26 --}}
                 {{-- <p class="text-white font-bold text-sm">GDPR &amp; HIPAA Compliant</p> --}}
                 <p class="text-white font-bold text-sm">GDPR &amp; Data Protection Act 2018</p>
-                <p class="text-white/50 text-xs">Your data security is our highest priority. All transmissions are AES-256 encrypted.</p>
+                {{-- ORIGINAL: DAI feedback 26-06-26 All transmissions are AES-256 encrypted --}}
+                <p class="text-white/50 text-xs">Your data security is our highest priority. All data is encrypted and stored securely in compliance with GDPR.</p>
             </div>
         </div>
     </div>
