@@ -18,7 +18,7 @@ class GoogleSheetsService
     private function getService(): ?Sheets
     {
         if ($this->service) return $this->service;
-        $json = env('GOOGLE_SERVICE_ACCOUNT_JSON', Setting::get('google_service_account_json', ''));
+        $json = Setting::get('google_service_account_json', '') ?: env('GOOGLE_SERVICE_ACCOUNT_JSON', '');
         if (empty($json) || empty($this->spreadsheetId)) {
             \Log::warning('GoogleSheets getService: missing credentials', ['has_json' => !empty($json), 'has_sheet_id' => !empty($this->spreadsheetId)]);
             return null;
