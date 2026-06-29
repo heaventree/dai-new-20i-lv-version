@@ -4,7 +4,7 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /dai-laravel/public
+    RewriteBase /dai-laravel/public/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
