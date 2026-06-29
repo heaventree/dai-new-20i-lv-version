@@ -51,7 +51,7 @@ $bioParagraphs = collect(preg_split('/\n\s*\n/', trim(strip_tags($member->bio ??
                         <div class="absolute bottom-5 left-5 flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold uppercase"
                              style="background:rgba(11,49,104,0.88);color:#fff;letter-spacing:0.12em">
                             <span class="inline-block rounded-full flex-shrink-0" style="width:7px;height:7px;background:#ffcf00"></span>
-                            RSA-approved
+                            RSA-Approved
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ $bioParagraphs = collect(preg_split('/\n\s*\n/', trim(strip_tags($member->bio ??
                 {{-- Stats --}}
                 <div class="grid grid-cols-3 gap-6 pt-6" style="border-top:1px solid #d1dae8">
                     @foreach([
-                        ['RSA-approved', 'Driving Instructor'],
+                        ['RSA-Approved', 'Driving Instructor'],
                         ['€235', 'Assessment Fee'],
                         ['Nationwide', 'Service'],
                     ] as [$value, $label])
