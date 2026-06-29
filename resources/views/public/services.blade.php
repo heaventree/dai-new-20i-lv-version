@@ -131,7 +131,7 @@ $moreConditions = [
                 {{-- ORIGINAL: DAI feedback 26-06-26 ['Clinical Rigor', ...] → ['Clinical Rigour', ...] --}}
                 @foreach([
                     {{-- ORIGINAL: DAI feedback 26-06-26 Clinical Rigour + twelve years + helpful restrictive licensing --}}
-                    ['Experienced Driver Assessors', 'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and RSA Registered. With an average of 10+ years of experience, each assessor has a strong history in the industry.'],
+                    ['Experienced Driver Assessors', 'Assessments are conducted by our professional team of assessors. Each one fully qualified, insured, Garda Vetted and <a href="https://www.rsa.ie/docs/default-source/road-safety/slainte-agus-tiomaint/medical-fitness-to-drive-guidelines-2026.pdf?sfvrsn=a3301610_2" target="_blank" class="underline hover:opacity-80" style="color:hsl(215 81% 23%)">RSA Registered</a>. With an average of 10+ years of experience, each assessor has a strong history in the industry.'],
                     ['Safe Mobility',       'We commit to keeping you on the road safely through vehicle modification recommendations, guidance on conditional, temporary medical permits or restricted licensing.'],
                     ['Independent Status',  'Neutral third-party perspective trusted by licensing authorities and healthcare practitioners nationwide.'],
                     ['Compassionate Care',  'We understand the importance of driving for your life. Our assessments are conducted with dignity and empathy.'],
@@ -139,7 +139,7 @@ $moreConditions = [
                 <div class="rounded-xl p-5"
                      style="border-left:3px solid hsl(215 81% 23%);background:hsl(210 11% 97%)">
                     <p class="font-bold text-sm mb-2" style="color:hsl(215 81% 23%)">{{ $title }}</p>
-                    <p class="text-sm leading-relaxed" style="color:#6b7280">{{ $desc }}</p>
+                    <p class="text-sm leading-relaxed" style="color:#6b7280">{!! $desc !!}</p>
                 </div>
                 @endforeach
             </div>
