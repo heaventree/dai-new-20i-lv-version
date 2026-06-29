@@ -95,9 +95,14 @@ class GoogleSheetsService
                 $dob = substr($dob, 0, 10);
             }
             $amount = isset($data['amount_paid']) ? number_format((float)$data['amount_paid'], 2, '.', '') : '';
+            // order_id is not saved to DB — use token as booking reference
+            // gp_name_address is the actual DB field (not gp_name)
+            // vehicle fields exist in DB but are not yet collected in the form
+            $orderId = $data['order_id'] ?? $data['token'] ?? '';
+            $gpName  = $data['gp_name_address'] ?? $data['gp_name'] ?? '';
             $values = [[
                 (string)($data['id'] ?? ''),
-                (string)($data['order_id'] ?? ''),
+                (string)$orderId,
                 now()->format('Y-m-d H:i:s'),
                 $payerName,
                 (string)($data['email'] ?? ''),
@@ -116,7 +121,7 @@ class GoogleSheetsService
                 (string)($data['vehicle_model'] ?? ''),
                 (string)($data['vehicle_year'] ?? ''),
                 (string)($data['vehicle_reg'] ?? ''),
-                (string)($data['gp_name'] ?? ''),
+                (string)$gpName,
             ]];
             \Log::info('GoogleSheets appendAssessment', ['col_count' => count($values[0]), 'values' => $values[0]]);
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
