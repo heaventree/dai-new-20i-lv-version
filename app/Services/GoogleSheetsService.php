@@ -86,7 +86,10 @@ class GoogleSheetsService
     public function appendAssessment(array $data): bool
     {
         $service = $this->getService();
-        if (!$service) return false;
+        if (!$service) {
+            \Log::warning('GoogleSheets appendAssessment: getService() returned null — check google_service_account_json and google_sheets_id settings');
+            return false;
+        }
         try {
             $fullName = trim(($data['first_name'] ?? '') . ' ' . ($data['last_name'] ?? ''));
             $id = $data['id'] ?? '';
@@ -94,9 +97,11 @@ class GoogleSheetsService
             $amount = isset($data['amount_paid']) ? number_format((float)$data['amount_paid'], 2, '.', '') : '';
             $fmt = function($key) use ($data) {
                 $v = $data[$key] ?? '';
+                if (empty($v)) return '';
                 if ($v instanceof \DateTimeInterface) return $v->format('Y-m-d');
-                if (is_string($v) && strlen($v) > 10 && preg_match('/^\d{4}-\d{2}-\d{2}T/', $v)) return substr($v, 0, 10);
-                return (string)$v;
+                $v = (string)$v;
+                if (strlen($v) > 10 && preg_match('/^\d{4}-\d{2}-\d{2}/', $v)) return substr($v, 0, 10);
+                return $v;
             };
             $hasSig = !empty($data['signature_data']);
             $values = [[

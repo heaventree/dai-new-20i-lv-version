@@ -496,6 +496,7 @@ $lc = "block text-sm font-semibold text-gray-700 mb-1.5";
         </svg>
     </div>
     <h2 class="text-3xl font-bold mb-3" style="color:hsl(215 81% 14%);font-family:Manrope,sans-serif">Application Submitted!</h2>
+    <p class="font-mono font-bold text-lg mb-2" style="color:hsl(215 81% 23%)">Your Reference: DAI-{{ $application->created_at->format('Y') }}-{{ str_pad($application->id, 4, '0', STR_PAD_LEFT) }}</p>
     <p class="text-lg text-gray-600 mb-2">Thank you, your application has been received.</p>
     <p class="text-sm text-gray-500 mb-8">Our team will review your details and be in touch shortly. If you have any questions, please email <a href="mailto:info@dai.ie" class="underline" style="color:hsl(215 81% 14%)">info@dai.ie</a>.</p>
     <a href="{{ url('/') }}"
