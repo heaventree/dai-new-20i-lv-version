@@ -79,7 +79,7 @@ class GoogleSheetsService
     }
 
     // Headers: Date, Submission ID, Person Title, Name, Address, Eircode, Phone, Email,
-    //          DOB, (Wppay-skip), Booking ID, Amount Paid, License Number, License Expire,
+    //          DOB, Booking ID, Amount Paid, License Number, License Expire,
     //          Motor Tax Expire, Vehicle Insurance Expire, Insurance Company, Next NCT Due,
     //          GPS Name & Address, Alt Contact Name, Consultant Name & Address,
     //          Alt Contact Number, Signature, Referral, Payment Status, Application Status
@@ -114,7 +114,6 @@ class GoogleSheetsService
                 (string)($data['phone'] ?? ''),
                 (string)($data['email'] ?? ''),
                 $fmt('dob'),
-                '',
                 (string)($data['token'] ?? ''),
                 $amount,
                 (string)($data['license_number'] ?? ''),
@@ -135,7 +134,7 @@ class GoogleSheetsService
             \Log::info('GoogleSheets appendAssessment', ['col_count' => count($values[0]), 'values' => $values[0]]);
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'Assessments!A:Z',
+                $this->spreadsheetId, 'Assessments!A:Y',
                 $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
