@@ -78,56 +78,59 @@ class GoogleSheetsService
         }
     }
 
-    // ORIGINAL: DAI feedback 26-06-28 — realigned columns to match spreadsheet headers
-    // Headers: ID, Order ID, Date, Payer Name, Payer Email, Booking #, Amount,
-    //          Payment Status, Status, Title, First Name, Last Name, Phone, Address,
-    //          DOB, Licence No, Vehicle Make, Model, Year, Reg, GP Name
+    // Headers: Date, Submission ID, Person Title, Name, Address, Eircode, Phone, Email,
+    //          DOB, (Wppay-skip), Booking ID, Amount Paid, License Number, License Expire,
+    //          Motor Tax Expire, Vehicle Insurance Expire, Insurance Company, Next NCT Due,
+    //          GPS Name & Address, Alt Contact Name, Consultant Name & Address,
+    //          Alt Contact Number, Signature, Referral, Payment Status, Application Status
     public function appendAssessment(array $data): bool
     {
         $service = $this->getService();
         if (!$service) return false;
         try {
-            $payerName = trim(($data['first_name'] ?? '') . ' ' . ($data['last_name'] ?? ''));
-            $dob = $data['dob'] ?? '';
-            if ($dob instanceof \DateTimeInterface) {
-                $dob = $dob->format('Y-m-d');
-            } elseif (is_string($dob) && strlen($dob) > 10) {
-                $dob = substr($dob, 0, 10);
-            }
-            $amount = isset($data['amount_paid']) ? number_format((float)$data['amount_paid'], 2, '.', '') : '';
-            // order_id is not saved to DB — use token as booking reference
-            // gp_name_address is the actual DB field (not gp_name)
-            // vehicle fields exist in DB but are not yet collected in the form
+            $fullName = trim(($data['first_name'] ?? '') . ' ' . ($data['last_name'] ?? ''));
             $id = $data['id'] ?? '';
-            $orderId = $id ? ('DAI-' . date('Y') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT)) : ($data['token'] ?? '');
-            $gpName  = $data['gp_name_address'] ?? $data['gp_name'] ?? '';
+            $submissionId = $id ? ('DAI-' . date('Y') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT)) : '';
+            $amount = isset($data['amount_paid']) ? number_format((float)$data['amount_paid'], 2, '.', '') : '';
+            $fmt = function($key) use ($data) {
+                $v = $data[$key] ?? '';
+                if ($v instanceof \DateTimeInterface) return $v->format('Y-m-d');
+                if (is_string($v) && strlen($v) > 10 && preg_match('/^\d{4}-\d{2}-\d{2}T/', $v)) return substr($v, 0, 10);
+                return (string)$v;
+            };
+            $hasSig = !empty($data['signature_data']);
             $values = [[
-                (string)($data['id'] ?? ''),
-                (string)$orderId,
                 now()->format('Y-m-d H:i:s'),
-                $payerName,
+                $submissionId,
+                (string)($data['title'] ?? ''),
+                $fullName,
+                (string)($data['address'] ?? ''),
+                (string)($data['eircode'] ?? ''),
+                (string)($data['phone'] ?? ''),
                 (string)($data['email'] ?? ''),
+                $fmt('dob'),
+                '',
                 (string)($data['token'] ?? ''),
                 $amount,
+                (string)($data['license_number'] ?? ''),
+                $fmt('license_expiry'),
+                $fmt('motor_tax_expiry'),
+                $fmt('vehicle_insurance_expiry'),
+                (string)($data['insurance_company'] ?? ''),
+                $fmt('nct_due'),
+                (string)($data['gp_name_address'] ?? $data['gp_name'] ?? ''),
+                (string)($data['alt_contact_name'] ?? ''),
+                (string)($data['consultant_name_address'] ?? ''),
+                (string)($data['alt_contact_phone'] ?? ''),
+                $hasSig ? 'Yes' : 'No',
+                (string)($data['referral_reason'] ?? ''),
                 (string)($data['payment_status'] ?? ''),
                 (string)($data['status'] ?? ''),
-                (string)($data['title'] ?? ''),
-                (string)($data['first_name'] ?? ''),
-                (string)($data['last_name'] ?? ''),
-                (string)($data['phone'] ?? ''),
-                (string)($data['address'] ?? ''),
-                (string)$dob,
-                (string)($data['license_number'] ?? ''),
-                (string)($data['vehicle_make'] ?? ''),
-                (string)($data['vehicle_model'] ?? ''),
-                (string)($data['vehicle_year'] ?? ''),
-                (string)($data['vehicle_reg'] ?? ''),
-                (string)$gpName,
             ]];
             \Log::info('GoogleSheets appendAssessment', ['col_count' => count($values[0]), 'values' => $values[0]]);
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'Assessments!A:U',
+                $this->spreadsheetId, 'Assessments!A:Z',
                 $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
