@@ -96,8 +96,8 @@
         <div class="bg-white rounded-xl shadow p-6 text-sm space-y-2">
             <h2 class="font-bold text-navy mb-3">Reference</h2>
             <div class="flex justify-between"><span class="text-gray-500">Application ID</span><span class="font-mono font-semibold text-navy">DAI-{{ $application->created_at->format('Y') }}-{{ str_pad($application->id, 4, '0', STR_PAD_LEFT) }}</span></div>
-            <div class="flex justify-between"><span class="text-gray-500">Submitted By</span><span class="font-medium">{{ $application->first_name ?: '—' }} {{ $application->last_name }}</span></div>
-            <div class="flex justify-between"><span class="text-gray-500">Email</span><span>{{ $application->email ?? '—' }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Customer Name</span><span class="font-medium">{{ $application->payment->customer_name ?? ($application->first_name ?: '—') . ' ' . $application->last_name }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Customer Email</span><span>{{ $application->payment->customer_email ?? $application->email ?? '—' }}</span></div>
             <div class="flex justify-between"><span class="text-gray-500">Booking Token</span><span class="font-mono text-xs break-all">{{ Str::limit($application->token, 18) }}</span></div>
             @if($application->stripe_payment_intent_id)
             <div class="flex justify-between"><span class="text-gray-500">Stripe PI</span><span class="font-mono text-xs break-all">{{ Str::limit($application->stripe_payment_intent_id, 22) }}</span></div>
