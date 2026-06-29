@@ -81,7 +81,8 @@
                     {{-- ORIGINAL: DAI feedback 26-06-26 As clinicians... --}}
                     <p>As leaders in providing on-road driver assessments, we are committed to remaining agile and forward thinking in this rapidly changing landscape.<br><br>We are constantly improving our knowledge, acquiring best practice, and ensuring a high-quality service and experience for our clients.</p>
                     {{-- ORIGINAL: DAI feedback 26-06-26 As a company, we tend to deliver...clinical assessment training. --}}
-                    <p>As a company, we deliver objective, professional, and the best standard of assessment training.</p>
+                    {{-- ORIGINAL: As a company, we deliver objective, professional, and the best standard of assessment training. --}}
+                    <p>As a company, we deliver objective, professional on-road assessments to the highest standard.</p>
                     {{-- ORIGINAL: DAI feedback 26-06-26 REMOVED: 'We can ensure our drivers...' and 'We have striven to develop training...' --}}
                 </div>
                 <ul class="space-y-3">
