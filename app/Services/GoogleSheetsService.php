@@ -19,7 +19,10 @@ class GoogleSheetsService
     {
         if ($this->service) return $this->service;
         $json = env('GOOGLE_SERVICE_ACCOUNT_JSON', Setting::get('google_service_account_json', ''));
-        if (empty($json) || empty($this->spreadsheetId)) return null;
+        if (empty($json) || empty($this->spreadsheetId)) {
+            \Log::warning('GoogleSheets getService: missing credentials', ['has_json' => !empty($json), 'has_sheet_id' => !empty($this->spreadsheetId)]);
+            return null;
+        }
         try {
             $credentials = json_decode($json, true);
             if (!$credentials) return null;
@@ -29,6 +32,7 @@ class GoogleSheetsService
             $this->service = new Sheets($client);
             return $this->service;
         } catch (\Exception $e) {
+            \Log::error('GoogleSheets getService failed', ['error' => $e->getMessage()]);
             return null;
         }
     }
