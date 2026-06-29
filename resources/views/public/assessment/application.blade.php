@@ -55,7 +55,8 @@ $lc = "block text-sm font-semibold text-gray-700 mb-1.5";
     </div>
     <h2 class="text-3xl font-bold mb-2" style="color:hsl(215 81% 14%);font-family:Manrope,sans-serif">Payment Confirmed!</h2>
     <p class="text-xl text-gray-600 mb-2">Amount paid: <strong class="text-gray-900">€{{ number_format($application->amount_paid, 2) }}</strong></p>
-    <p class="text-sm text-gray-400 mb-8">Order ID: <code class="bg-gray-100 px-2 py-1 rounded text-xs font-mono">{{ $application->token }}</code></p>
+    {{-- ORIGINAL: DAI feedback 26-06-29 was showing raw UUID token --}}
+    <p class="text-sm text-gray-400 mb-8">Order ID: <code class="bg-gray-100 px-2 py-1 rounded text-xs font-mono" style="color:hsl(215 81% 23%);font-weight:600">DAI-{{ $application->created_at->format('Y') }}-{{ str_pad($application->id, 4, '0', STR_PAD_LEFT) }}</code></p>
     <div class="bg-gray-50 rounded-xl p-6 text-left space-y-3 mb-8 max-w-lg mx-auto">
         <p class="font-semibold text-gray-900">What happens next?</p>
         <p class="text-sm text-gray-600">Please complete your assessment application below. It takes about 5–10 minutes. You can save your progress at each step and return using your unique link.</p>
