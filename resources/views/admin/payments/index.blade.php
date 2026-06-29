@@ -32,7 +32,7 @@
                 <td class="px-4 py-3 text-gray-500">{{ $p->customer_email }}</td>
                 <td class="px-4 py-3 font-medium">€{{ number_format($p->amount, 2) }}</td>
                 <td class="px-4 py-3"><span class="px-2 py-1 rounded-full text-xs font-semibold {{ $p->status === 'succeeded' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">{{ ucfirst($p->status) }}</span></td>
-                <td class="px-4 py-3 text-gray-400 font-mono text-xs">{{ substr($p->stripe_payment_intent_id, 0, 20) }}...</td>
+                <td class="px-4 py-3 text-gray-400 font-mono text-xs" title="{{ $p->stripe_payment_intent_id }}">{{ $p->stripe_payment_intent_id }}</td>
                 <td class="px-4 py-3 text-gray-500">{{ $p->created_at->format('d/m/Y H:i') }}</td>
                 <td class="px-4 py-3">
                     @if($p->application)
