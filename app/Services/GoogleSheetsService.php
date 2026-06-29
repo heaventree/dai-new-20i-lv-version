@@ -68,8 +68,8 @@ class GoogleSheetsService
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'HCP Referrals!A1',
-                $body, ['valueInputOption' => 'USER_ENTERED', 'insertDataOption' => 'INSERT_ROWS']
+                $this->spreadsheetId, 'HCP Referrals!A:S',
+                $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
         } catch (\Exception $e) {
@@ -118,11 +118,11 @@ class GoogleSheetsService
                 (string)($data['vehicle_reg'] ?? ''),
                 (string)($data['gp_name'] ?? ''),
             ]];
-            \Log::info('GoogleSheets appendAssessment', ['values' => $values[0]]);
+            \Log::info('GoogleSheets appendAssessment', ['col_count' => count($values[0]), 'values' => $values[0]]);
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'Assessments!A1',
-                $body, ['valueInputOption' => 'USER_ENTERED', 'insertDataOption' => 'INSERT_ROWS']
+                $this->spreadsheetId, 'Assessments!A:U',
+                $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
         } catch (\Exception $e) {
