@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
             // Google Sheets
             'google_sheets_id'            => '1hvbRmC5qMUctk0733OK0283nEAvCWyRgLsoZiO0G7mw',
             'google_service_account_json' => env('GOOGLE_SERVICE_ACCOUNT_JSON', ''),
-}',
 
             // SMTP
             'mail_host'     => 'smtp.dai.ie',

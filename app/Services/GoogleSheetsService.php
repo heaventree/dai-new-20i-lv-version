@@ -63,33 +63,42 @@ class GoogleSheetsService
         }
     }
 
+    // ORIGINAL: DAI feedback 26-06-28 — realigned columns to match spreadsheet headers
+    // Headers: ID, Order ID, Date, Payer Name, Payer Email, Booking #, Amount,
+    //          Payment Status, Status, Title, First Name, Last Name, Phone, Address,
+    //          DOB, Licence No, Vehicle Make, Model, Year, Reg, GP Name
     public function appendAssessment(array $data): bool
     {
         $service = $this->getService();
         if (!$service) return false;
         try {
+            $payerName = trim(($data['first_name'] ?? '') . ' ' . ($data['last_name'] ?? ''));
+            $dob = $data['dob'] ?? '';
+            if ($dob instanceof \DateTimeInterface) {
+                $dob = $dob->format('Y-m-d');
+            }
             $values = [[
+                $data['id'] ?? '',
+                $data['order_id'] ?? '',
                 now()->format('Y-m-d H:i:s'),
-                $data['token'] ?? '',
-                $data['first_name'] ?? '',
-                $data['last_name'] ?? '',
+                $payerName,
                 $data['email'] ?? '',
-                $data['phone'] ?? '',
-                $data['dob'] ?? '',
-                $data['address'] ?? '',
-                $data['eircode'] ?? '',
-                $data['license_number'] ?? '',
-                $data['license_category'] ?? '',
-                $data['vehicle_reg'] ?? '',
-                $data['vehicle_make'] ?? '',
-                $data['vehicle_model'] ?? '',
-                $data['referral_reason'] ?? '',
-                $data['gp_name'] ?? '',
-                $data['gp_phone'] ?? '',
+                $data['token'] ?? '',
                 $data['amount_paid'] ?? '',
                 $data['payment_status'] ?? '',
                 $data['status'] ?? '',
-                $data['submitted_at'] ?? '',
+                $data['title'] ?? '',
+                $data['first_name'] ?? '',
+                $data['last_name'] ?? '',
+                $data['phone'] ?? '',
+                $data['address'] ?? '',
+                $dob,
+                $data['license_number'] ?? '',
+                $data['vehicle_make'] ?? '',
+                $data['vehicle_model'] ?? '',
+                $data['vehicle_year'] ?? '',
+                $data['vehicle_reg'] ?? '',
+                $data['gp_name'] ?? '',
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
