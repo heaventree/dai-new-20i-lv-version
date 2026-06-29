@@ -33,30 +33,43 @@ class GoogleSheetsService
         }
     }
 
+    // Headers: ID, Submitted At, HCP Name, HCP Address, HCP Phone, HCP Email,
+    //          Patient Title, Patient Name, Patient Address, Patient Eircode,
+    //          Patient Date of Birth, Patient Phone, Patient Email,
+    //          Alternative Contact, Alternative Contact Details,
+    //          Medical Condition, Clinical Notes, Consent, Doc Attached
     public function appendHcpReferral(array $data): bool
     {
         $service = $this->getService();
         if (!$service) return false;
         try {
+            $dob = (string)($data['patient_dob'] ?? '');
+            if (strlen($dob) > 10) $dob = substr($dob, 0, 10);
             $values = [[
+                (string)($data['id'] ?? ''),
                 now()->format('Y-m-d H:i:s'),
-                $data['hcp_name'] ?? '',
-                $data['hcp_registration_no'] ?? '',
-                $data['hcp_practice'] ?? '',
-                $data['hcp_email'] ?? '',
-                $data['hcp_phone'] ?? '',
-                $data['patient_full_name'] ?? '',
-                $data['patient_dob'] ?? '',
-                $data['patient_pps'] ?? '',
-                $data['reason_for_referral'] ?? '',
-                $data['clinical_notes'] ?? '',
+                (string)($data['hcp_name'] ?? ''),
+                (string)($data['hcp_practice'] ?? ''),
+                (string)($data['hcp_phone'] ?? ''),
+                (string)($data['hcp_email'] ?? ''),
+                '',
+                (string)($data['patient_full_name'] ?? ''),
+                '',
+                '',
+                $dob,
+                '',
+                '',
+                (string)($data['alt_contact_name'] ?? ''),
+                (string)($data['alt_contact_details'] ?? ''),
+                (string)($data['reason_for_referral'] ?? ''),
+                (string)($data['clinical_notes'] ?? ''),
                 ($data['consent'] ?? false) ? 'Yes' : 'No',
-                $data['document_name'] ?? '',
+                (string)($data['document_name'] ?? ''),
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
                 $this->spreadsheetId, 'HCP Referrals!A1',
-                $body, ['valueInputOption' => 'RAW', 'insertDataOption' => 'INSERT_ROWS']
+                $body, ['valueInputOption' => 'USER_ENTERED', 'insertDataOption' => 'INSERT_ROWS']
             );
             return true;
         } catch (\Exception $e) {
@@ -109,7 +122,7 @@ class GoogleSheetsService
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
                 $this->spreadsheetId, 'Assessments!A1',
-                $body, ['valueInputOption' => 'RAW', 'insertDataOption' => 'INSERT_ROWS']
+                $body, ['valueInputOption' => 'USER_ENTERED', 'insertDataOption' => 'INSERT_ROWS']
             );
             return true;
         } catch (\Exception $e) {
