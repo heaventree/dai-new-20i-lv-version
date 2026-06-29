@@ -51,10 +51,11 @@ class GoogleSheetsService
                 $data['reason_for_referral'] ?? '',
                 $data['clinical_notes'] ?? '',
                 ($data['consent'] ?? false) ? 'Yes' : 'No',
+                $data['document_name'] ?? '',
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'HCP Referrals!A:L',
+                $this->spreadsheetId, 'HCP Referrals!A:M',
                 $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
