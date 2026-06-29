@@ -33,11 +33,9 @@ class GoogleSheetsService
         }
     }
 
-    // Headers: ID, Submitted At, HCP Name, HCP Address, HCP Phone, HCP Email,
-    //          Patient Title, Patient Name, Patient Address, Patient Eircode,
-    //          Patient Date of Birth, Patient Phone, Patient Email,
-    //          Alternative Contact, Alternative Contact Details,
-    //          Medical Condition, Clinical Notes, Consent, Doc Attached
+    // Headers: ID, Submitted At, HCP Name, Practice/Hospital Name, HCP Email,
+    //          HCP Phone, Alt Contact Name, Alt Contact Details, Patient Name,
+    //          Patient DOB, Reason for Referral, Clinical Notes, Document Attached
     public function appendHcpReferral(array $data): bool
     {
         $service = $this->getService();
@@ -50,25 +48,19 @@ class GoogleSheetsService
                 now()->format('Y-m-d H:i:s'),
                 (string)($data['hcp_name'] ?? ''),
                 (string)($data['hcp_practice'] ?? ''),
-                "'" . (string)($data['hcp_phone'] ?? ''),
                 (string)($data['hcp_email'] ?? ''),
-                '',
-                (string)($data['patient_full_name'] ?? ''),
-                '',
-                '',
-                $dob,
-                '',
-                '',
+                "'" . (string)($data['hcp_phone'] ?? ''),
                 (string)($data['alt_contact_name'] ?? ''),
                 (string)($data['alt_contact_details'] ?? ''),
+                (string)($data['patient_full_name'] ?? ''),
+                $dob,
                 (string)($data['reason_for_referral'] ?? ''),
                 (string)($data['clinical_notes'] ?? ''),
-                ($data['consent'] ?? false) ? 'Yes' : 'No',
                 (string)($data['document_name'] ?? ''),
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'HCP Referrals!A:S',
+                $this->spreadsheetId, 'HCP Referrals!A:M',
                 $body, ['valueInputOption' => 'USER_ENTERED']
             );
             return true;
