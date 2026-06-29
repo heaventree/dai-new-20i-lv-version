@@ -98,7 +98,8 @@ class GoogleSheetsService
             // order_id is not saved to DB — use token as booking reference
             // gp_name_address is the actual DB field (not gp_name)
             // vehicle fields exist in DB but are not yet collected in the form
-            $orderId = $data['order_id'] ?? $data['token'] ?? '';
+            $id = $data['id'] ?? '';
+            $orderId = $id ? ('DAI-' . date('Y') . '-' . str_pad($id, 4, '0', STR_PAD_LEFT)) : ($data['token'] ?? '');
             $gpName  = $data['gp_name_address'] ?? $data['gp_name'] ?? '';
             $values = [[
                 (string)($data['id'] ?? ''),
