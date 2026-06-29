@@ -11,6 +11,7 @@
         <thead><tr class="bg-gray-50 border-b text-left text-gray-500">
             <th class="px-4 py-3 font-medium">Order ID</th>
             <th class="px-4 py-3 font-medium">Customer</th>
+            <th class="px-4 py-3 font-medium">Email</th>
             <th class="px-4 py-3 font-medium">Amount</th>
             <th class="px-4 py-3 font-medium">Status</th>
             <th class="px-4 py-3 font-medium">Stripe PI</th>
@@ -27,7 +28,8 @@
                         <span class="text-gray-400 text-xs">—</span>
                     @endif
                 </td>
-                <td class="px-4 py-3">{{ $p->customer_name ?: $p->customer_email }}</td>
+                <td class="px-4 py-3">{{ $p->customer_name ?: '—' }}</td>
+                <td class="px-4 py-3 text-gray-500">{{ $p->customer_email }}</td>
                 <td class="px-4 py-3 font-medium">€{{ number_format($p->amount, 2) }}</td>
                 <td class="px-4 py-3"><span class="px-2 py-1 rounded-full text-xs font-semibold {{ $p->status === 'succeeded' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">{{ ucfirst($p->status) }}</span></td>
                 <td class="px-4 py-3 text-gray-400 font-mono text-xs">{{ substr($p->stripe_payment_intent_id, 0, 20) }}...</td>
@@ -41,7 +43,7 @@
                 </td>
             </tr>
             @empty
-            <tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">No payments yet.</td></tr>
+            <tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">No payments yet.</td></tr>
             @endforelse
         </tbody>
     </table>
