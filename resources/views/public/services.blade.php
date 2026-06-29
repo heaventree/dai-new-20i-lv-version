@@ -156,7 +156,7 @@ $moreConditions = [
 
         {{-- Header row --}}
         <div class="flex items-start justify-between mb-10">
-            <div class="max-w-sm">
+            <div>
                 <h2 class="font-display text-3xl font-extrabold leading-tight mb-3"
                     style="letter-spacing:-0.02em;color:hsl(215 81% 23%);font-family:Manrope,sans-serif">
                     {{-- ORIGINAL: DAI feedback 26-06-26 Specialized Condition Assessments --}}
