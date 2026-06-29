@@ -55,11 +55,12 @@ class GoogleSheetsService
             ]];
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'HCP Referrals!A:M',
-                $body, ['valueInputOption' => 'USER_ENTERED']
+                $this->spreadsheetId, 'HCP Referrals!A1',
+                $body, ['valueInputOption' => 'RAW', 'insertDataOption' => 'INSERT_ROWS']
             );
             return true;
         } catch (\Exception $e) {
+            \Log::error('GoogleSheets appendHcpReferral failed', ['error' => $e->getMessage()]);
             return false;
         }
     }
@@ -77,37 +78,42 @@ class GoogleSheetsService
             $dob = $data['dob'] ?? '';
             if ($dob instanceof \DateTimeInterface) {
                 $dob = $dob->format('Y-m-d');
+            } elseif (is_string($dob) && strlen($dob) > 10) {
+                $dob = substr($dob, 0, 10);
             }
+            $amount = isset($data['amount_paid']) ? number_format((float)$data['amount_paid'], 2, '.', '') : '';
             $values = [[
-                $data['id'] ?? '',
-                $data['order_id'] ?? '',
+                (string)($data['id'] ?? ''),
+                (string)($data['order_id'] ?? ''),
                 now()->format('Y-m-d H:i:s'),
                 $payerName,
-                $data['email'] ?? '',
-                $data['token'] ?? '',
-                $data['amount_paid'] ?? '',
-                $data['payment_status'] ?? '',
-                $data['status'] ?? '',
-                $data['title'] ?? '',
-                $data['first_name'] ?? '',
-                $data['last_name'] ?? '',
-                $data['phone'] ?? '',
-                $data['address'] ?? '',
-                $dob,
-                $data['license_number'] ?? '',
-                $data['vehicle_make'] ?? '',
-                $data['vehicle_model'] ?? '',
-                $data['vehicle_year'] ?? '',
-                $data['vehicle_reg'] ?? '',
-                $data['gp_name'] ?? '',
+                (string)($data['email'] ?? ''),
+                (string)($data['token'] ?? ''),
+                $amount,
+                (string)($data['payment_status'] ?? ''),
+                (string)($data['status'] ?? ''),
+                (string)($data['title'] ?? ''),
+                (string)($data['first_name'] ?? ''),
+                (string)($data['last_name'] ?? ''),
+                (string)($data['phone'] ?? ''),
+                (string)($data['address'] ?? ''),
+                (string)$dob,
+                (string)($data['license_number'] ?? ''),
+                (string)($data['vehicle_make'] ?? ''),
+                (string)($data['vehicle_model'] ?? ''),
+                (string)($data['vehicle_year'] ?? ''),
+                (string)($data['vehicle_reg'] ?? ''),
+                (string)($data['gp_name'] ?? ''),
             ]];
+            \Log::info('GoogleSheets appendAssessment', ['values' => $values[0]]);
             $body = new \Google\Service\Sheets\ValueRange(['values' => $values]);
             $service->spreadsheets_values->append(
-                $this->spreadsheetId, 'Assessments!A:U',
-                $body, ['valueInputOption' => 'USER_ENTERED']
+                $this->spreadsheetId, 'Assessments!A1',
+                $body, ['valueInputOption' => 'RAW', 'insertDataOption' => 'INSERT_ROWS']
             );
             return true;
         } catch (\Exception $e) {
+            \Log::error('GoogleSheets appendAssessment failed', ['error' => $e->getMessage()]);
             return false;
         }
     }
