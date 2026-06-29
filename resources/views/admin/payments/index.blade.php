@@ -9,7 +9,7 @@
 <div class="bg-white rounded-xl shadow overflow-hidden">
     <table class="w-full text-sm">
         <thead><tr class="bg-gray-50 border-b text-left text-gray-500">
-            <th class="px-4 py-3 font-medium">App ID</th>
+            <th class="px-4 py-3 font-medium">Order ID</th>
             <th class="px-4 py-3 font-medium">Customer</th>
             <th class="px-4 py-3 font-medium">Amount</th>
             <th class="px-4 py-3 font-medium">Status</th>
