@@ -186,7 +186,7 @@
         }
     });
 
-    quill.root.innerHTML = sourceEl.value;
+    quill.clipboard.dangerouslyPasteHTML(sourceEl.value);
 
     var form = sourceEl.closest('form');
     if (form) {
