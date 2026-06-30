@@ -245,6 +245,7 @@
         }
         .header-btn-outline:hover { background: #f0f4ff; }
     </style>
+    @stack('styles')
 </head>
 <body style="height:100vh;overflow:hidden">
 <div style="display:flex;height:100vh;overflow:hidden">

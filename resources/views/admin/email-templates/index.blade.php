@@ -103,13 +103,16 @@
         {{-- Body --}}
         <div style="margin-bottom:24px">
             <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:8px">
-                Email Body (HTML)
+                Email Body
             </label>
-            <textarea name="body" rows="18" required
-                      style="width:100%;box-sizing:border-box;border:1.5px solid #d1d5db;border-radius:8px;padding:12px 14px;font-size:0.8125rem;font-family:'Fira Code','Cascadia Code','Menlo',monospace;color:#1e293b;line-height:1.6;resize:vertical;outline:none;transition:border-color 0.15s"
-                      onfocus="this.style.borderColor='#132d5e'" onblur="this.style.borderColor='#d1d5db'">{{ old('body', $template->body) }}</textarea>
+            <div id="quill-editor-{{ $slug }}" style="background:#fff;border:1.5px solid #d1d5db;border-radius:0 0 8px 8px;min-height:340px;font-size:0.9375rem;color:#1e293b;line-height:1.6"></div>
+            <textarea name="body" id="quill-source-{{ $slug }}" required style="display:none">{{ old('body', $template->body) }}</textarea>
             <p style="margin:7px 0 0;font-size:0.8125rem;color:#9ca3af">
-                HTML is supported. The body is automatically wrapped in the DAI branded email layout when sent.
+                Format the email visually. You can still type variables like
+                @foreach($meta['variables'] as $v)
+                <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:0.75rem;color:#374151">{{ $v }}</code>{{ !$loop->last ? ' ' : '' }}
+                @endforeach
+                directly into the text — they'll be replaced automatically when the email is sent. The body is automatically wrapped in the DAI branded email layout.
             </p>
         </div>
 
@@ -152,5 +155,47 @@
     </form>
 </div>
 @endif
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+<style>
+    .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #d1d5db; }
+    .ql-container.ql-snow { border-color: #d1d5db; font-family: 'Inter', sans-serif; }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script>
+(function() {
+    var editorEl = document.getElementById('quill-editor-{{ $slug }}');
+    var sourceEl = document.getElementById('quill-source-{{ $slug }}');
+    if (!editorEl || !sourceEl || typeof Quill === 'undefined') return;
+
+    var quill = new Quill(editorEl, {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{ header: [false, 2, 3] }],
+                ['bold', 'italic', 'underline'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link'],
+                [{ color: [] }, { background: [] }],
+                ['clean']
+            ]
+        }
+    });
+
+    quill.root.innerHTML = sourceEl.value;
+
+    var form = sourceEl.closest('form');
+    if (form) {
+        form.addEventListener('submit', function() {
+            sourceEl.value = quill.root.innerHTML;
+        });
+    }
+})();
+</script>
+@endpush
 
 @endsection
