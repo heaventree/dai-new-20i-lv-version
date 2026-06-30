@@ -34,8 +34,9 @@
 
             <div class="bg-white border border-gray-200 rounded-2xl shadow-sm">
                 <div class="p-6 space-y-5">
-                    <form method="POST" action="{{ route('assessment.checkout') }}">
+                    <form method="POST" action="{{ route('assessment.checkout') }}" id="assessment-payment-form">
                         @csrf
+                        @include('partials.recaptcha', ['formId' => 'assessment-payment-form', 'action' => 'payment'])
 
                         <div class="space-y-5">
                             {{-- Name --}}

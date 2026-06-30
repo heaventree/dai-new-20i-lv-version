@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Models\Setting;
 use App\Services\EmailService;
 use App\Services\GoogleSheetsService;
+use App\Services\RecaptchaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
@@ -47,8 +48,11 @@ class AssessmentController extends Controller
         return redirect()->route('assessment.application', ['token' => $token]);
     }
 
-    public function createCheckout(Request $request)
+    public function createCheckout(Request $request, RecaptchaService $recaptcha)
     {
+        if (!$recaptcha->verify($request->input('recaptcha_token'), 'payment')) {
+            return back()->withInput()->with('error', 'We could not verify your submission. Please try again.');
+        }
         $request->validate(['email' => 'required|email', 'name' => 'required|string|max:200']);
         $fee = (int)((float)Setting::get('assessment_fee', '235') * 100);
         // ORIGINAL: DAI feedback 26-06-26 — removed env('STRIPE_SECRET') fallback, keys come from DB settings
@@ -194,8 +198,11 @@ class AssessmentController extends Controller
         return redirect()->route('assessment.application', ['token' => $token, 'step' => $step + 1]);
     }
 
-    public function submit(Request $request, string $token)
+    public function submit(Request $request, string $token, RecaptchaService $recaptcha)
     {
+        if (!$recaptcha->verify($request->input('recaptcha_token'), 'assessment')) {
+            return back()->with('error', 'We could not verify your submission. Please try again.');
+        }
         $application = AssessmentApplication::where('token', $token)->where('payment_status', 'paid')->firstOrFail();
         $application->update(['status' => 'submitted', 'submitted_at' => now()]);
 

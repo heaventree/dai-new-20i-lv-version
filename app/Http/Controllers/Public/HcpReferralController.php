@@ -5,13 +5,18 @@ use App\Models\HcpReferral;
 use App\Models\Setting;
 use App\Services\EmailService;
 use App\Services\GoogleSheetsService;
+use App\Services\RecaptchaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 class HcpReferralController extends Controller
 {
     public function index() { return view('public.hcp-referral'); }
-    public function submit(Request $request)
+    public function submit(Request $request, RecaptchaService $recaptcha)
     {
+        if (!$recaptcha->verify($request->input('recaptcha_token'), 'hcp_referral')) {
+            return back()->withInput()->with('error', 'We could not verify your submission. Please try again.');
+        }
+
         $request->validate([
             'hcp_name'            => 'required|string|max:200',
             'hcp_practice'        => 'required|string|max:200',

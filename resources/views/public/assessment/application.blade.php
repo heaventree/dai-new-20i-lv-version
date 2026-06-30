@@ -380,6 +380,13 @@ $lc = "block text-sm font-semibold text-gray-700 mb-1.5";
     </div>
     <p class="text-gray-500 mb-8">Please review your details below before submitting. Use the <strong>Edit</strong> button to go back and make changes.</p>
 
+    @if(session('error'))
+    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 flex items-start gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+        <span>{{ session('error') }}</span>
+    </div>
+    @endif
+
     <div class="space-y-6">
 
         {{-- Personal --}}
@@ -473,8 +480,9 @@ $lc = "block text-sm font-semibold text-gray-700 mb-1.5";
             ⚠ You must complete your signature in Step 4 before you can submit.
         </div>
         @endif
-        <form method="POST" action="{{ route('assessment.submit', $application->token) }}">
+        <form method="POST" action="{{ route('assessment.submit', $application->token) }}" id="assessment-submit-form">
             @csrf
+            @include('partials.recaptcha', ['formId' => 'assessment-submit-form', 'action' => 'assessment'])
             <button type="submit"
                     {{ !$application->signature_data ? 'disabled' : '' }}
                     class="w-full text-white font-bold text-xl py-5 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"

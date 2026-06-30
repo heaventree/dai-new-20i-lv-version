@@ -5,6 +5,7 @@ use App\Models\ContactSubmission;
 use App\Models\CmsPage;
 use App\Models\Setting;
 use App\Services\EmailService;
+use App\Services\RecaptchaService;
 use Illuminate\Http\Request;
 class ContactController extends Controller
 {
@@ -13,10 +14,13 @@ class ContactController extends Controller
         $page = CmsPage::where('slug', 'contact')->first();
         return view('public.contact', compact('page'));
     }
-    public function submit(Request $request)
+    public function submit(Request $request, RecaptchaService $recaptcha)
     {
         if ($request->filled('website_url')) {
             return back()->with('success', 'Thank you for your message. We will get back to you within 2 business days.');
+        }
+        if (!$recaptcha->verify($request->input('recaptcha_token'), 'contact')) {
+            return back()->withInput()->with('error', 'We could not verify your submission. Please try again.');
         }
         $request->validate([
             'first_name' => 'required|string|max:100',

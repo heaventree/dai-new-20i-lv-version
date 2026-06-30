@@ -525,7 +525,7 @@ $s = fn($k, $d='') => \App\Models\Setting::get($k, $d);
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap">
         <div>
             <h2 class="card-title">Google reCAPTCHA</h2>
-            <p class="card-desc">Protect your public forms from spam bots and automated abuse. reCAPTCHA runs on the HCP Referral Form, Assessment Form, Contact form, and the Payment page.</p>
+            <p class="card-desc">Protect your public forms from spam bots and automated abuse. When enabled with valid keys below, reCAPTCHA v3 generates a token client-side and verifies it server-side (score checked against your threshold) on the HCP Referral Form, Assessment Form, Contact form, and the Payment page. Submissions that fail verification are rejected with an error message.</p>
         </div>
         <span class="{{ $rcEnabled ? 'badge-green-sm' : 'badge-grey-sm' }}" style="font-size:0.8rem;padding:4px 12px">
             {{ $rcEnabled ? '✓ Enabled' : 'Disabled' }}
