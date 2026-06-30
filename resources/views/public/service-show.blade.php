@@ -273,7 +273,7 @@ $assessmentSteps = [
 $otherServices = \App\Models\CmsPage::where('slug', 'like', 'service-%')
     ->where('slug', '!=', $service->slug)
     ->where('is_published', true)
-    ->orderBy('display_order')
+    ->orderBy('title')
     ->take(4)
     ->get();
 @endphp
