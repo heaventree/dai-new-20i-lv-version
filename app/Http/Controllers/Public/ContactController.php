@@ -17,6 +17,7 @@ class ContactController extends Controller
     public function submit(Request $request, RecaptchaService $recaptcha)
     {
         if ($request->filled('website_url')) {
+            \Log::info('Contact submit blocked by honeypot', ['website_url' => $request->input('website_url')]);
             return back()->with('success', 'Thank you for your message. We will get back to you within 2 business days.');
         }
         if (!$recaptcha->verify($request->input('recaptcha_token'), 'contact')) {

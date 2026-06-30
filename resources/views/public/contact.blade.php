@@ -56,7 +56,7 @@
                     @csrf
                     @include('partials.recaptcha', ['formId' => 'contact-form', 'action' => 'contact'])
                     {{-- Honeypot — DAI feedback 26-06-26 --}}
-                    <div style="position:absolute;left:-9999px" aria-hidden="true">
+                    <div style="display:none" aria-hidden="true">
                         <input type="text" name="website_url" tabindex="-1" autocomplete="off">
                     </div>
 
