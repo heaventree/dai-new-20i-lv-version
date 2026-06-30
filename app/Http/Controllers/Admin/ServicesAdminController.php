@@ -14,7 +14,9 @@ class ServicesAdminController extends Controller
             ->orderBy('slug')
             ->get();
 
-        return view('admin.services.index', compact('services'));
+        return response()
+            ->view('admin.services.index', compact('services'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     }
 
     public function uploadImage(Request $request, CmsPage $cmsPage)
@@ -23,12 +25,18 @@ class ServicesAdminController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
-        $file     = $request->file('image');
-        $filename = $cmsPage->slug . '.' . $file->getClientOriginalExtension();
-        $dest     = public_path('images/services');
+        $dest = public_path('images/services');
         if (!File::isDirectory($dest)) {
             File::makeDirectory($dest, 0755, true);
         }
+
+        // Remove any previous custom image(s) for this slug (any extension) to avoid orphaned files
+        foreach (File::glob($dest . '/' . $cmsPage->slug . '.*') as $existing) {
+            File::delete($existing);
+        }
+
+        $file     = $request->file('image');
+        $filename = $cmsPage->slug . '.' . $file->getClientOriginalExtension();
         $file->move($dest, $filename);
 
         $cmsPage->update(['image_path' => '/images/services/' . $filename]);
