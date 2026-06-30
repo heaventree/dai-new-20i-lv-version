@@ -27,7 +27,7 @@
     {{-- Image area with hover-to-upload --}}
     <div style="position:relative;height:180px;background:#e5e7eb;overflow:hidden" class="service-img-wrap">
         @if($img)
-        <img src="{{ asset(ltrim($img, '/')) }}" alt="{{ $service->title }}"
+        <img src="{{ asset(ltrim($img, '/')) }}?v={{ $service->updated_at?->timestamp }}" alt="{{ $service->title }}"
              style="width:100%;height:100%;object-fit:cover;display:block">
         @else
         <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#cbd5e1,#94a3b8)">
