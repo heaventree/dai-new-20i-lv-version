@@ -5,22 +5,27 @@
 @section('content')
 
 @php
-// Canonical 14-service list — single source of truth, no duplicate/mislabeled slugs.
+// Canonical service list — no duplicate/mislabeled slugs.
+// Featured (3-col card grid):
 $featured = [
-    ['slug' => 'dementia',                       'title' => 'Dementia & Memory Loss',          'desc' => 'Comprehensive cognitive screening focusing on judgement, processing speed, and visual-spatial navigation.',                       'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-2'],
-    ['slug' => 'congenital-disorders',           'title' => 'Congenital Disorders',            'desc' => 'Many people living with congenital conditions drive safely with the right assessment, adaptations, and support.',                  'icon' => 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636'],
-    ['slug' => 'stroke',                         'title' => 'Stroke',                          'desc' => 'Evaluation of physical motor control, visual field integrity, and executive function following a stroke.',                        'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
-    ['slug' => 'neurological-disorders',         'title' => 'Neurological Disorders',          'desc' => "Assessment for Parkinson's, MS, and other progressive conditions affecting coordination and reaction time.",                      'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
-    ['slug' => 'brain-injury',                   'title' => 'Brain Injury',                    'desc' => 'Acquired brain injury affects drivers in complex ways. Our specialist assessors provide thorough, individualised evaluation.',     'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
-    ['slug' => 'cardiovascular-disorders',       'title' => 'Cardiovascular Disorders',        'desc' => 'Heart conditions and recent cardiac events may require medical clearance and a fitness to drive assessment.',                      'icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'],
-    ['slug' => 'psychiatric-disorders',          'title' => 'Psychiatric Disorders',           'desc' => 'Assessment of how psychiatric conditions and related medications may affect concentration, judgement, and driving safety.',        'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
-    ['slug' => 'diabetes-mellitus',              'title' => 'Diabetes Mellitus',               'desc' => 'Evaluation of hypoglycaemia awareness, vision, and other diabetes-related factors relevant to safe driving.',                      'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
-    ['slug' => 'renal-disorders',                'title' => 'Renal Disorders',                 'desc' => 'Assessment of fatigue, cognitive effects, and treatment schedules associated with renal conditions and dialysis.',                 'icon' => 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'],
-    ['slug' => 'auditory-visual-sensory-loss',   'title' => 'Auditory or Visual Sensory Loss', 'desc' => 'Functional vision and hearing assessments beyond standard exams, testing contrast sensitivity and peripheral awareness.',          'icon' => 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'],
-    ['slug' => 'respiratory-sleep-disorders',    'title' => 'Respiratory & Sleep Disorders',   'desc' => 'Conditions like sleep apnoea, COPD, and severe asthma can impair alertness and require careful assessment.',                       'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-    ['slug' => 'learning-difficulties',          'title' => 'Learning Difficulties',           'desc' => 'Assessment accounting for processing, comprehension, and decision-making considerations relevant to safe driving.',                'icon' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s4.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
-    ['slug' => 'epilepsy',                       'title' => 'Epilepsy',                        'desc' => 'Assessment of driving fitness following seizure events, in line with RSA guidelines on seizure-free periods.',                     'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
-    ['slug' => 'your-health-and-driving',        'title' => 'Your Health and Driving',         'desc' => 'Supportive evaluations for drivers of any age to extend safe driving years through guidance and environmental awareness.',         'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
+    ['slug' => 'dementia',               'title' => 'Dementia & Memory Loss',    'desc' => 'Comprehensive cognitive screening focusing on judgement, processing speed, and visual-spatial navigation.',         'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-2'],
+    ['slug' => 'stroke',                 'title' => 'Stroke & ABI',              'desc' => 'Evaluation of physical motor control, visual field integrity, and executive function following brain injury.',     'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
+    ['slug' => 'neurological-disorders', 'title' => 'Neurological Disorders',    'desc' => "Assessment for Parkinson's, MS, and other progressive conditions affecting coordination and reaction time.",        'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
+    ['slug' => 'congenital-disorders',   'title' => 'Congenital Disorders',      'desc' => 'Many people living with congenital conditions drive safely with the right assessment, adaptations, and support.',     'icon' => 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636'],
+    ['slug' => 'brain-injury',           'title' => 'Brain Injury',              'desc' => 'Acquired brain injury affects drivers in complex ways. Our specialist assessors provide thorough, individualised evaluation.', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
+    ['slug' => 'your-health-and-driving','title' => 'Your Health and Driving',   'desc' => 'Supportive evaluations for drivers of any age to extend safe driving years through guidance and environmental awareness.', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
+];
+
+// More conditions (pill list):
+$moreConditions = [
+    ['slug' => 'auditory-visual-sensory-loss', 'title' => 'Auditory or Visual Sensory Loss'],
+    ['slug' => 'epilepsy',                     'title' => 'Epilepsy'],
+    ['slug' => 'diabetes-mellitus',            'title' => 'Diabetes Mellitus'],
+    ['slug' => 'cardiovascular-disorders',     'title' => 'Cardiovascular Disorders'],
+    ['slug' => 'psychiatric-disorders',        'title' => 'Psychiatric Disorders'],
+    ['slug' => 'renal-disorders',              'title' => 'Renal Disorders'],
+    ['slug' => 'respiratory-sleep-disorders',  'title' => 'Respiratory & Sleep Disorders'],
+    ['slug' => 'learning-difficulties',        'title' => 'Learning Difficulties'],
 ];
 @endphp
 
@@ -164,8 +169,8 @@ $featured = [
             </div>
         </div>
 
-        {{-- 14-card grid: full canonical service list --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        {{-- 6-card grid --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             @foreach($featured as $item)
             {{-- ORIGINAL: DAI feedback 26-06-26 added border-left brand colour + hover border --}}
             <a href="{{ route('service.show', $item['slug']) }}"
@@ -197,6 +202,27 @@ $featured = [
                 </span>
             </a>
             @endforeach
+        </div>
+
+        {{-- More conditions --}}
+        <div class="text-center">
+            <p class="text-base mb-3" style="color:#6b7280">
+                We assess many other conditions — including epilepsy, diabetes, cardiovascular disorders, and more.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                @foreach($moreConditions as $cond)
+                <a href="{{ route('service.show', $cond['slug']) }}"
+                   class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:shadow-sm hover:text-white"
+                   style="color:hsl(215 81% 23%);border-color:hsl(215 81% 23%);background:hsl(215 81% 23% / 0.05)"
+                   onmouseover="this.style.background='hsl(215 81% 23%)';this.style.color='#fff'"
+                   onmouseout="this.style.background='hsl(215 81% 23% / 0.05)';this.style.color='hsl(215 81% 23%)'">
+                    {{ $cond['title'] }}
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                @endforeach
+            </div>
         </div>
     </div>
 </section>
