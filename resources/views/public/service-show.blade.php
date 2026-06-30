@@ -76,8 +76,11 @@ $assessmentSteps = [
                 </div>
 
                 {{-- Hero image --}}
+                @php
+                    $heroImgVer = $service->image_path ? @filemtime(public_path(ltrim($service->image_path, '/'))) : null;
+                @endphp
                 <div class="rounded-2xl overflow-hidden mb-12" style="height:460px">
-                    <img src="{{ asset($service->image_path ? ltrim($service->image_path, '/') : 'images/assessment-scene-v2.png') }}{{ $service->image_path ? '?v=' . $service->updated_at?->timestamp : '' }}"
+                    <img src="{{ asset($service->image_path ? ltrim($service->image_path, '/') : 'images/assessment-scene-v2.png') }}{{ $service->image_path ? '?v=' . $heroImgVer : '' }}"
                          alt="{{ $title }} driving assessment"
                          class="w-full h-full object-cover"
                          onerror="this.style.background='hsl(215 81% 14%)';this.style.display='block';this.removeAttribute('src')">

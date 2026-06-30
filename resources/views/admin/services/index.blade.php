@@ -21,13 +21,14 @@
     $summary   = mb_strlen($summary) > 90 ? mb_substr($summary, 0, 90) . '…' : $summary;
     $img       = $service->image_path ?: null;
     $hasCustom = !empty($service->image_path);
+    $imgVer    = $img ? @filemtime(public_path(ltrim($img, '/'))) : null;
 @endphp
 <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.08);overflow:hidden">
 
     {{-- Image area with hover-to-upload --}}
     <div style="position:relative;height:180px;background:#e5e7eb;overflow:hidden" class="service-img-wrap">
         @if($img)
-        <img src="{{ asset(ltrim($img, '/')) }}?v={{ $service->updated_at?->timestamp }}" alt="{{ $service->title }}"
+        <img src="{{ asset(ltrim($img, '/')) }}?v={{ $imgVer }}" alt="{{ $service->title }}"
              style="width:100%;height:100%;object-fit:cover;display:block">
         @else
         <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#cbd5e1,#94a3b8)">
