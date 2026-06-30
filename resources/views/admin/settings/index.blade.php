@@ -533,10 +533,10 @@ $s = fn($k, $d='') => \App\Models\Setting::get($k, $d);
     </div>
     {{-- Toggle switch --}}
     <label style="display:flex;align-items:center;gap:12px;cursor:pointer;padding:14px 18px;background:#f9fafb;border-radius:8px;border:1.5px solid #e5e7eb">
-        <div onclick="document.getElementById('rc-chk').click()"
-             style="position:relative;width:44px;height:24px;flex-shrink:0;cursor:pointer">
+        <div style="position:relative;width:44px;height:24px;flex-shrink:0;cursor:pointer">
             <input type="checkbox" id="rc-chk" name="recaptcha_enabled" value="1"
                    {{ $rcEnabled?'checked':'' }}
+                   onchange="document.getElementById('rc-track').style.background=this.checked?'#132d5e':'#d1d5db';document.getElementById('rc-thumb').style.left=this.checked?'23px':'3px'"
                    style="position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;z-index:2">
             <div id="rc-track"
                  style="width:44px;height:24px;border-radius:12px;background:{{ $rcEnabled?'#132d5e':'#d1d5db' }};transition:background 0.2s;position:relative">
